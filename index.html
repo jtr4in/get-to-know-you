@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual-Sided Dynamic Deck Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>Dual-Sided Dynamic Deck Game</h1>
+        <div id="player-setup">
+            <input type="text" id="player1-name" placeholder="Player 1 Name">
+            <input type="text" id="player2-name" placeholder="Player 2 Name">
+            <button id="start-game">Start Game</button>
+        </div>
+        <div id="game-area" class="hidden">
+            <div id="scores">
+                <div id="player1-score">Player 1: <span>0</span></div>
+                <div id="player2-score">Player 2: <span>0</span></div>
+            </div>
+            <div id="current-player"><span></span>'S TURN</div>
+            <div id="timer">Time: <span id="timer-value">30</span>s</div>
+            <select id="category-select">
+                <option value="all">All Categories</option>
+                <option value="get-to-know">Get to Know You</option>
+                <option value="married-couples">Married Couples</option>
+                <option value="spice-up">Spice Up Your Sex Life</option>
+                <option value="deep-personal">Deep and Personal</option>
+                <option value="would-you-rather">Would You Rather</option>
+                <option value="hypothetical">Hypothetical Scenarios</option>
+            </select>
+            <select id="difficulty-select">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <div id="cards-container">
+                <div id="main-card" class="card clickable">
+                    <div id="question"></div>
+                    <div class="card-footer">Answer for 1 point</div>
+                </div>
+                <div id="flipped-card" class="card clickable">
+                    <div id="challenge"></div>
+                    <div class="card-footer">Complete for 3 points</div>
+                </div>
+            </div>
+            <button id="draw-card">Draw Card</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
