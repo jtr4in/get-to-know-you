@@ -6,6 +6,522 @@ body {
     min-height: 100vh;
     margin: 0;
     background-color: #FFF0F5; /* Light pink background */
+    transition: transform 0.5s ease-in-out;
+}
+
+body.head-to-head-mode {
+    transform: rotate(180deg);
+}
+
+body.head-to-head-mode #head-to-head-toggle {
+    transform: rotate(180deg);
+}
+
+#game-container {
+    text-align: center;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 20px rgba(199, 21, 133, 0.1); /* MediumVioletRed shadow */
+    max-width: 90%;
+    width: 600px;
+}
+
+h1 {
+    color: #C71585; /* MediumVioletRed */
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(199, 21, 133, 0.1);
+}
+
+#player-setup, #multiplayer-setup {
+    margin-bottom: 2rem;
+}
+
+#player-setup button, #multiplayer-setup button {
+    margin: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #FF69B4; /* HotPink */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#player-setup button:hover, #multiplayer-setup button:hover {
+    background-color: #FF1493; /* DeepPink */
+}
+
+#add-player {
+    background-color: #DB7093 !important; /* PaleVioletRed */
+    width: 40px;
+    height: 40px;
+    padding: 0 !important;
+    font-size: 1.5rem !important;
+    line-height: 1;
+}
+
+#add-player:hover {
+    background-color: #C71585 !important; /* MediumVioletRed */
+}
+
+.player-name {
+    margin: 0.5rem;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 200px;
+}
+
+#scores {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+}
+
+#scores > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0.7rem;
+    border-radius: 10px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    min-width: auto;
+    flex: 1;
+    max-width: calc(50% - 0.5rem);
+}
+
+#scores > div.current-player-box {
+    color: white;
+}
+
+#scores > div:hover {
+    transform: translateY(-2px);
+}
+
+#scores > div > span {
+    color: inherit;
+    text-shadow: none;
+}
+
+#scores > div > span:first-child {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    color: #666;
+}
+
+#scores > div.current-player-box > span:first-child {
+    color: inherit;
+}
+
+#scores > div > span:last-child {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#current-player {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    color: #C71585; /* MediumVioletRed */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    background-color: #FFF0F5; /* LavenderBlush */
+    padding: 0.5rem 1rem;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#timer {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #DB7093; /* PaleVioletRed */
+}
+
+#category-select {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+#cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 2rem 0;
+    min-height: 250px;
+}
+
+.card {
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#main-card {
+    border: 3px solid #C71585; /* MediumVioletRed */
+    border-bottom-width: 6px;
+    background-color: #C71585; /* MediumVioletRed */
+    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
+}
+
+#flipped-card {
+    border: 3px solid #FF69B4; /* HotPink */
+    border-bottom-width: 6px;
+    background-color: #FF69B4; /* HotPink */
+    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
+}
+
+.card-footer {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 0.9rem;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#main-card .card-footer {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+#flipped-card .card-footer {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
+
+#timer-container {
+    display: inline;
+    margin-left: 5px;
+}
+
+#timer-display {
+    display: inline;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#timer-value {
+    min-width: 18px;
+    text-align: right;
+}
+
+#timer-unit {
+    margin-right: 2px;
+}
+
+#timer-note {
+    font-size: 0.8rem;
+}
+
+#complete-text {
+    font-size: 1rem;
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    margin: 10px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #FF69B4; /* HotPink */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #FF1493; /* DeepPink */
+}
+
+#draw-card {
+    background-color: #DB7093; /* PaleVioletRed */
+    margin: 0;
+    padding: 12px 24px;
+}
+
+#draw-card:hover {
+    background-color: #C71585; /* MediumVioletRed */
+}
+
+@media (max-width: 768px) {
+    #game-container {
+        padding: 1rem;
+        max-width: 95%;
+    }
+
+    .card {
+        width: 90%;
+        height: auto;
+        min-height: 150px;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    #question, #challenge {
+        font-size: 1rem;
+        line-height: 1.2;
+        padding: 0.5rem;
+        height: 100%;
+    }
+
+    .card-footer {
+        position: relative;
+        font-size: 0.7rem;
+        padding: 3px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    #header h3 {
+        font-size: 1rem;
+    }
+
+    #reset-game {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+
+    #draw-card, #category-select {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    #scores {
+        gap: 0.7rem;
+        padding: 0.7rem;
+    }
+
+    #scores > div {
+        padding: 0.4rem 0.6rem;
+        min-width: auto;
+        flex: 1;
+        max-width: calc(50% - 0.5rem);
+    }
+
+    #scores > div > span:first-child {
+        font-size: 0.9rem;
+    }
+
+    #scores > div > span:last-child {
+        font-size: 1.1rem;
+    }
+
+    #timer-display {
+        font-size: 0.7rem;
+    }
+
+    #complete-text {
+        font-size: 0.8rem;
+    }
+}
+
+#game-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#category-select {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+#draw-card {
+    background-color: #DB7093; /* PaleVioletRed */
+    margin: 0;
+    padding: 12px 24px;
+}
+
+#draw-card:hover {
+    background-color: #C71585; /* MediumVioletRed */
+}
+
+#question, #challenge {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
+@keyframes background-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.background-pop-animation {
+    animation: background-pop 0.4s ease-in-out;
+}
+
+@keyframes card-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.card-pop-animation {
+    animation: card-pop 0.3s ease-in-out;
+}
+
+@keyframes appearFromLeft {
+    0% {
+        transform: translateX(-100%) rotate(-10deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes appearFromRight {
+    0% {
+        transform: translateX(100%) rotate(10deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes disappearToLeft {
+    0% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-100%) rotate(-10deg);
+        opacity: 0;
+    }
+}
+
+@keyframes disappearToRight {
+    0% {
+        transform: translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) rotate(10deg);
+        opacity: 0;
+    }
+}
+
+.appear-from-left {
+    animation: appearFromLeft 0.5s ease-out forwards;
+}
+
+.appear-from-right {
+    animation: appearFromRight 0.5s ease-out forwards;
+}
+
+.disappear-to-left {
+    animation: disappearToLeft 0.5s ease-out forwards;
+}
+
+.disappear-to-right {
+    animation: disappearToRight 0.5s ease-out forwards;
+}
+
+#reset-game {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    background-color: #FF69B4; /* HotPink */
+    margin: 0;
+}
+
+#reset-game:hover {
+    background-color: #FF1493; /* DeepPink */
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    #game-container {
+        padding: 1rem;
+        max-width: 95%;
+    }
+
+    .card {
+        width: 90%;
+        height: auto;
+        min-height: 150px;
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
+    #question, #challenge {
+        font-size: 1rem;
+body {
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #FFF0F5; /* Light pink background */
 }
 
 body.head-to-head-mode {

@@ -331,9 +331,6 @@ document.getElementById('flipped-card').addEventListener('click', handleCardClic
 document.getElementById('category-select').addEventListener('change', drawCard);
 document.getElementById('reset-game').addEventListener('click', resetGame);
 document.getElementById('game-title').addEventListener('click', resetToPlayerSetup);
-document.getElementById('head-to-head').addEventListener('change', function() {
-    isHeadToHeadMode = this.checked;
-    document.body.classList.toggle('head-to-head-mode', isHeadToHeadMode);
-});
+document.getElementById('head-to-head').addEventListener('change', toggleHeadToHeadMode);
 
 // Initial setup is now handled by the startGame function
