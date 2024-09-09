@@ -290,7 +290,7 @@ function updateCurrentPlayer() {
     });
 
     const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
-    currentPlayerBox.firstChild.textContent += "'s turn to answer";
+    currentPlayerBox.firstChild.textContent += "'s turn";
 }
 
 function resetToPlayerSetup() {
