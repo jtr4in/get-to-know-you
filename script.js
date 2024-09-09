@@ -6,6 +6,7 @@ let players = [];
 let currentPlayerIndex = 0;
 let isTimerDisabled = true;
 let isWithinTimeLimit = true;
+let isHeadToHeadMode = false;
 
 const cards = {
     'fun-and-light': [
@@ -218,6 +219,9 @@ function answerQuestion() {
     updateScores();
     switchPlayer();
     drawCard();
+    if (document.getElementById('head-to-head').checked) {
+        toggleHeadToHeadMode();
+    }
 }
 
 function completeChallenge() {
@@ -226,6 +230,9 @@ function completeChallenge() {
     updateScores();
     switchPlayer();
     drawCard();
+    if (document.getElementById('head-to-head').checked) {
+        toggleHeadToHeadMode();
+    }
 }
 
 function resetTimer() {
@@ -308,6 +315,11 @@ function resetToPlayerSetup() {
     `;
 }
 
+function toggleHeadToHeadMode() {
+    isHeadToHeadMode = !isHeadToHeadMode;
+    document.body.classList.toggle('head-to-head-mode', isHeadToHeadMode);
+}
+
 document.getElementById('add-player').addEventListener('click', addPlayer);
 document.getElementById('start-game').addEventListener('click', startGame);
 document.getElementById('draw-card').addEventListener('click', drawCard);
@@ -316,5 +328,9 @@ document.getElementById('flipped-card').addEventListener('click', handleCardClic
 document.getElementById('category-select').addEventListener('change', drawCard);
 document.getElementById('reset-game').addEventListener('click', resetGame);
 document.getElementById('game-title').addEventListener('click', resetToPlayerSetup);
+document.getElementById('head-to-head').addEventListener('change', function() {
+    isHeadToHeadMode = this.checked;
+    document.body.classList.toggle('head-to-head-mode', isHeadToHeadMode);
+});
 
 // Initial setup is now handled by the startGame function
