@@ -25,11 +25,40 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-#player-setup {
+#player-setup, #multiplayer-setup {
     margin-bottom: 2rem;
 }
 
-#player-setup input {
+#player-setup button, #multiplayer-setup button {
+    margin: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#player-setup button:hover, #multiplayer-setup button:hover {
+    background-color: #45a049;
+}
+
+#add-player {
+    background-color: #008CBA !important;
+    width: 40px;
+    height: 40px;
+    padding: 0 !important;
+    font-size: 1.5rem !important;
+    line-height: 1;
+}
+
+#add-player:hover {
+    background-color: #007a9e !important;
+}
+
+.player-name {
     margin: 0.5rem;
     padding: 0.8rem;
     border: 1px solid #ddd;
@@ -40,19 +69,59 @@ h1 {
 
 #scores {
     display: flex;
-    justify-content: space-around;
-    margin-bottom: 1rem;
-    font-weight: bold;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#scores > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    background-color: white;
+    min-width: 120px;
+}
+
+#scores > div:hover {
+    transform: translateY(-2px);
+}
+
+#scores > div > span {
+    color: inherit;
+    text-shadow: none;
+}
+
+#scores > div > span:first-child {
     font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+#scores > div > span:last-child {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 #current-player {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     text-transform: uppercase;
     color: #4CAF50;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    background-color: #e8f5e9;
+    padding: 0.5rem 1rem;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #timer {
@@ -61,9 +130,8 @@ h1 {
     color: #008CBA;
 }
 
-#category-select, #difficulty-select {
-    margin: 0.5rem;
-    padding: 0.8rem;
+#category-select {
+    padding: 12px;
     font-size: 1rem;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -88,11 +156,12 @@ h1 {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    font-size: 1rem;
+    font-size: 1.5rem;
     padding: 1.5rem;
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: white;
 }
 
 .card:hover {
@@ -101,33 +170,41 @@ h1 {
 }
 
 #main-card {
-    border: 3px solid #4CAF50;
+    border: 3px solid black;
     border-bottom-width: 6px;
+    background-color: black; /* Added background color */
 }
 
 #flipped-card {
-    border: 3px solid #008CBA;
+    border: 3px solid #4CAF50;
     border-bottom-width: 6px;
+    background-color: #4CAF50; /* Added background color */
 }
 
 .card-footer {
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.1);
-    color: #333;
     padding: 10px;
     text-align: center;
     font-weight: bold;
     position: absolute;
     bottom: 0;
     left: 0;
+    font-size: 0.9rem; /* Reduced font size for footer */
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 #main-card .card-footer {
-    background-color: rgba(76, 175, 80, 0.2);
+    background-color: rgba(255, 255, 255, 0.2); /* Changed to semi-transparent white */
+    color: white;
 }
 
 #flipped-card .card-footer {
-    background-color: rgba(0, 140, 186, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 0;
 }
 
 .hidden {
@@ -152,6 +229,8 @@ button:hover {
 
 #draw-card {
     background-color: #008CBA;
+    margin: 0;
+    padding: 12px 24px;
 }
 
 #draw-card:hover {
@@ -172,4 +251,153 @@ button:hover {
     h1 {
         font-size: 2rem;
     }
+}
+
+#timer-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+#timer-display {
+    display: flex;
+    align-items: baseline;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+#timer-value {
+    min-width: 18px;
+    text-align: right;
+}
+
+#timer-unit {
+    margin-right: 5px;
+}
+
+#timer-note {
+    font-size: 0.8rem;
+}
+
+#complete-text {
+    font-size: 1rem;
+}
+
+#game-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#category-select {
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+#draw-card {
+    background-color: #008CBA;
+    margin: 0;
+    padding: 12px 24px;
+}
+
+#draw-card:hover {
+    background-color: #007a9e;
+}
+
+/* Remove the toggle-timer related styles */
+
+#question, #challenge {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    height: calc(100% - 40px); /* Adjust this value based on the footer height */
+    overflow: auto;
+    font-size: 1.2rem; /* Slightly reduce font size */
+    line-height: 1.3; /* Add line height for better readability */
+}
+
+@keyframes background-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.background-pop-animation {
+    animation: background-pop 0.4s ease-in-out;
+}
+
+@keyframes card-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.card-pop-animation {
+    animation: card-pop 0.3s ease-in-out;
+}
+
+#reset-game {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    background-color: #f44336;
+    margin: 0;
+}
+
+#reset-game:hover {
+    background-color: #d32f2f;
+}
+
+/* Remove these styles as they're no longer needed
+#reset-game {
+    display: block;
+    margin: 1rem auto;
+    background-color: #f44336;
+    color: white;
+}
+
+#reset-game:hover {
+    background-color: #d32f2f;
+}
+*/
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: #f0f0f0;
+    border-radius: 10px 10px 0 0;
+}
+
+#header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+#reset-game {
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#reset-game:hover {
+    background-color: #d32f2f;
 }

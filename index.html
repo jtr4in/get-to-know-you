@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dual-Sided Dynamic Deck Game</title>
+    <title>Quip Quirk</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="game-container">
-        <h1>Dual-Sided Dynamic Deck Game</h1>
+        <div id="header">
+            <h3>Quip Quirk</h3>
+            <button id="reset-game" class="hidden">Reset Game</button>
+        </div>
         <div id="player-setup">
-            <input type="text" id="player1-name" placeholder="Player 1 Name">
-            <input type="text" id="player2-name" placeholder="Player 2 Name">
+            <div id="player-inputs">
+                <div class="player-input-group">
+                    <input type="text" class="player-name" placeholder="Player 1 Name">
+                    <input type="color" class="player-color" value="#FF0000">
+                </div>
+                <div class="player-input-group">
+                    <input type="text" class="player-name" placeholder="Player 2 Name">
+                    <input type="color" class="player-color" value="#2196F3">
+                </div>
+            </div>
+            <button id="add-player">+</button>
             <button id="start-game">Start Game</button>
         </div>
         <div id="game-area" class="hidden">
@@ -19,22 +31,6 @@
                 <div id="player1-score">Player 1: <span>0</span></div>
                 <div id="player2-score">Player 2: <span>0</span></div>
             </div>
-            <div id="current-player"><span></span>'S TURN</div>
-            <div id="timer">Time: <span id="timer-value">30</span>s</div>
-            <select id="category-select">
-                <option value="all">All Categories</option>
-                <option value="get-to-know">Get to Know You</option>
-                <option value="married-couples">Married Couples</option>
-                <option value="spice-up">Spice Up Your Sex Life</option>
-                <option value="deep-personal">Deep and Personal</option>
-                <option value="would-you-rather">Would You Rather</option>
-                <option value="hypothetical">Hypothetical Scenarios</option>
-            </select>
-            <select id="difficulty-select">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
             <div id="cards-container">
                 <div id="main-card" class="card clickable">
                     <div id="question"></div>
@@ -42,10 +38,29 @@
                 </div>
                 <div id="flipped-card" class="card clickable">
                     <div id="challenge"></div>
-                    <div class="card-footer">Complete for 3 points</div>
+                    <div class="card-footer">
+                        <div id="timer-container">
+                            <div id="timer-display">
+                                <span id="timer-value">30</span><span id="timer-unit">s</span>
+                                <span id="timer-note">-1 point at 0</span>
+                            </div>
+                        </div>
+                        <span id="complete-text">Complete for 3 points</span>
+                    </div>
                 </div>
             </div>
-            <button id="draw-card">Draw Card</button>
+            <div id="game-controls">
+                <button id="draw-card">New Card</button>
+                <select id="category-select">
+                    <option value="all">All Categories</option>
+                    <option value="get-to-know">Get to Know You</option>
+                    <option value="married-couples">Married Couples</option>
+                    <option value="spice-up">Spice Up Your Sex Life</option>
+                    <option value="deep-personal">Deep and Personal</option>
+                    <option value="would-you-rather">Would You Rather</option>
+                    <option value="hypothetical">Hypothetical Scenarios</option>
+                </select>
+            </div>
         </div>
     </div>
     <script src="script.js"></script>

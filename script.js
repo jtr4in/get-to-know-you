@@ -2,11 +2,10 @@ let currentCard = null;
 let isQuestion = true;
 let timer = null;
 let timeLeft = 30;
-let players = [
-    { name: "Player 1", score: 0 },
-    { name: "Player 2", score: 0 }
-];
+let players = [];
 let currentPlayerIndex = 0;
+let isTimerDisabled = true;
+let isWithinTimeLimit = true;
 
 const cards = {
     'get-to-know': [
@@ -53,46 +52,103 @@ const cards = {
     ]
 };
 
+function initializeSinglePlayer() {
+    players = [{ name: "Player 1", score: 0 }];
+    startGame();
+    // Hide point system for single player mode
+    document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'none');
+}
+
+function showMultiplayerSetup() {
+    document.getElementById('player-setup').classList.add('hidden');
+    document.getElementById('multiplayer-setup').classList.remove('hidden');
+}
+
+function addPlayer() {
+    const playerInputs = document.getElementById('player-inputs');
+    const newInputGroup = document.createElement('div');
+    newInputGroup.className = 'player-input-group';
+    const playerCount = playerInputs.children.length + 1;
+    newInputGroup.innerHTML = `
+        <input type="text" class="player-name" placeholder="Player ${playerCount} Name">
+        <input type="color" class="player-color" value="#${Math.floor(Math.random()*16777215).toString(16)}">
+    `;
+    playerInputs.appendChild(newInputGroup);
+}
+
 function startGame() {
-    const player1Name = document.getElementById('player1-name').value || "Player 1";
-    const player2Name = document.getElementById('player2-name').value || "Player 2";
-    players[0].name = player1Name;
-    players[1].name = player2Name;
+    const playerInputGroups = document.querySelectorAll('.player-input-group');
+    players = Array.from(playerInputGroups).map((group, index) => ({
+        name: group.querySelector('.player-name').value || `Player ${index + 1}`,
+        score: 0,
+        color: group.querySelector('.player-color').value
+    }));
     
     document.getElementById('player-setup').classList.add('hidden');
     document.getElementById('game-area').classList.remove('hidden');
+    
+    document.getElementById('reset-game').classList.remove('hidden');
     
     updatePlayerNames();
     updateScores();
     updateCurrentPlayer();
     drawCard();
+    
+    // Show point system for multiplayer mode
+    if (players.length > 1) {
+        document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'block');
+    } else {
+        // Hide point system for single player mode
+        document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'none');
+    }
 }
 
 function updatePlayerNames() {
-    document.getElementById('player1-score').firstChild.textContent = `${players[0].name}: `;
-    document.getElementById('player2-score').firstChild.textContent = `${players[1].name}: `;
+    const scoresContainer = document.getElementById('scores');
+    scoresContainer.innerHTML = '';
+    scoresContainer.style.display = 'flex';
+    scoresContainer.style.flexWrap = 'wrap';
+    scoresContainer.style.justifyContent = 'center';
+    
+    players.forEach((player, index) => {
+        const scoreDiv = document.createElement('div');
+        scoreDiv.id = `player${index + 1}-score`;
+        scoreDiv.innerHTML = `<span>${player.name}</span><span>0</span>`;
+        scoreDiv.style.color = player.color;
+        scoresContainer.appendChild(scoreDiv);
+    });
+
+    updateCurrentPlayer(); // Add this line to set the initial background color
 }
 
+function getContrastColor(hexcolor) {
+    // Convert hex to RGB
+    const r = parseInt(hexcolor.substr(1,2),16);
+    const g = parseInt(hexcolor.substr(3,2),16);
+    const b = parseInt(hexcolor.substr(5,2),16);
+    
+    // Calculate luminance
+    const yiq = ((r*299)+(g*587)+(b*114))/1000;
+    
+    // Return black or white depending on luminance
+    return (yiq >= 128) ? 'black' : 'white';
+}
+
+// Update these functions to work with any number of players
 function updateScores() {
-    document.getElementById('player1-score').lastChild.textContent = players[0].score;
-    document.getElementById('player2-score').lastChild.textContent = players[1].score;
-}
-
-function updateCurrentPlayer() {
-    document.getElementById('current-player').firstChild.textContent = players[currentPlayerIndex].name.toUpperCase();
+    players.forEach((player, index) => {
+        const scoreElement = document.getElementById(`player${index + 1}-score`);
+        scoreElement.lastChild.textContent = player.score;
+    });
 }
 
 function switchPlayer() {
-    currentPlayerIndex = 1 - currentPlayerIndex; // Toggle between 0 and 1
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
     updateCurrentPlayer();
 }
 
 function getSelectedCategory() {
     return document.getElementById('category-select').value;
-}
-
-function getSelectedDifficulty() {
-    return document.getElementById('difficulty-select').value;
 }
 
 function getCardsFromCategory(category) {
@@ -126,6 +182,13 @@ function displayCard() {
 
 function handleCardClick(event) {
     const clickedCard = event.currentTarget;
+    
+    // Add pop animation
+    clickedCard.classList.add('card-pop-animation');
+    setTimeout(() => {
+        clickedCard.classList.remove('card-pop-animation');
+    }, 300); // 300ms matches the animation duration
+    
     if (clickedCard.id === 'main-card') {
         answerQuestion();
     } else if (clickedCard.id === 'flipped-card') {
@@ -134,15 +197,19 @@ function handleCardClick(event) {
 }
 
 function answerQuestion() {
-    players[currentPlayerIndex].score += 1;
+    const points = isWithinTimeLimit ? 3 : 2;
+    players[currentPlayerIndex].score += points;
     updateScores();
+    animateScoreBox(currentPlayerIndex);
     switchPlayer();
     drawCard();
 }
 
 function completeChallenge() {
-    players[currentPlayerIndex].score += 3;
+    const points = isWithinTimeLimit ? 3 : 2;
+    players[currentPlayerIndex].score += points;
     updateScores();
+    animateScoreBox(currentPlayerIndex);
     switchPlayer();
     drawCard();
 }
@@ -150,27 +217,78 @@ function completeChallenge() {
 function resetTimer() {
     clearInterval(timer);
     timeLeft = 30;
+    isWithinTimeLimit = true;
     updateTimerDisplay();
     timer = setInterval(() => {
         timeLeft--;
         updateTimerDisplay();
         if (timeLeft <= 0) {
             clearInterval(timer);
-            switchPlayer();
-            drawCard();
+            isWithinTimeLimit = false;
         }
     }, 1000);
 }
 
 function updateTimerDisplay() {
-    document.getElementById('timer-value').textContent = timeLeft;
+    const timerContainer = document.getElementById('timer-container');
+    const timerValue = document.getElementById('timer-value');
+    const completeText = document.getElementById('complete-text');
+
+    if (timeLeft > 0) {
+        timerValue.textContent = timeLeft;
+        timerContainer.style.display = 'flex';
+        completeText.textContent = 'Complete for 3 points';
+    } else {
+        timerContainer.style.display = 'none';
+        completeText.textContent = 'Complete for 2 points';
+    }
 }
 
+function resetGame() {
+    players.forEach(player => player.score = 0);
+    currentPlayerIndex = 0;
+    updateScores();
+    updateCurrentPlayer();
+    drawCard();
+}
+
+function updateCurrentPlayer() {
+    const scoresContainer = document.getElementById('scores');
+    scoresContainer.style.backgroundColor = players[currentPlayerIndex].color;
+    scoresContainer.style.color = getContrastColor(players[currentPlayerIndex].color);
+
+    // Remove the current-player-box class and "'s turn" text from all player boxes
+    document.querySelectorAll('#scores > div').forEach(div => {
+        div.classList.remove('current-player-box');
+        div.firstChild.textContent = div.firstChild.textContent.replace("'s turn", "");
+    });
+
+    // Add the current-player-box class to the current player's box and append "'s turn"
+    const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
+    currentPlayerBox.classList.add('current-player-box');
+    currentPlayerBox.firstChild.textContent += "'s turn";
+
+    // Add background pop animation
+    scoresContainer.classList.remove('background-pop-animation');
+    void scoresContainer.offsetWidth; // Trigger reflow
+    scoresContainer.classList.add('background-pop-animation');
+}
+
+function animateScoreBox(playerIndex) {
+    const scoreElement = document.getElementById(`player${playerIndex + 1}-score`);
+    scoreElement.classList.add('pop-animation');
+    // Remove the class after the animation completes
+    setTimeout(() => {
+        scoreElement.classList.remove('pop-animation');
+    }, 300); // 300ms matches the animation duration
+}
+
+document.getElementById('add-player').addEventListener('click', addPlayer);
 document.getElementById('start-game').addEventListener('click', startGame);
 document.getElementById('draw-card').addEventListener('click', drawCard);
 document.getElementById('main-card').addEventListener('click', handleCardClick);
 document.getElementById('flipped-card').addEventListener('click', handleCardClick);
 document.getElementById('category-select').addEventListener('change', drawCard);
-document.getElementById('difficulty-select').addEventListener('change', drawCard);
+document.getElementById('reset-game').addEventListener('click', resetGame);
 
 // Initial setup is now handled by the startGame function
