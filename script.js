@@ -254,14 +254,16 @@ function updateTimerDisplay() {
     const timerContainer = document.getElementById('timer-container');
     const timerValue = document.getElementById('timer-value');
     const completeText = document.getElementById('complete-text');
+    const timerNote = document.getElementById('timer-note');
 
     if (timeLeft > 0) {
         timerValue.textContent = timeLeft;
-        timerContainer.style.display = 'flex';
-        completeText.textContent = 'Complete for 3 points';
+        timerContainer.style.display = 'inline';
+        completeText.textContent = '3 points';
+        timerNote.textContent = '-1 point at 0s';
     } else {
         timerContainer.style.display = 'none';
-        completeText.textContent = 'Complete for 2 points';
+        completeText.textContent = '2 points';
     }
 }
 
@@ -274,19 +276,20 @@ function resetGame() {
 }
 
 function updateCurrentPlayer() {
-    const scoresContainer = document.getElementById('scores');
-    scoresContainer.style.backgroundColor = players[currentPlayerIndex].color;
-    scoresContainer.style.color = getContrastColor(players[currentPlayerIndex].color);
-
-    // Remove the current-player-box class and "'s turn" text from all player boxes
-    document.querySelectorAll('#scores > div').forEach(div => {
-        div.classList.remove('current-player-box');
+    document.querySelectorAll('#scores > div').forEach((div, index) => {
+        if (index === currentPlayerIndex) {
+            div.classList.add('current-player-box');
+            div.style.backgroundColor = players[index].color;
+            div.style.color = getContrastColor(players[index].color);
+        } else {
+            div.classList.remove('current-player-box');
+            div.style.backgroundColor = '';
+            div.style.color = '';
+        }
         div.firstChild.textContent = div.firstChild.textContent.replace("'s turn", "");
     });
 
-    // Add the current-player-box class to the current player's box and append "'s turn"
     const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
-    currentPlayerBox.classList.add('current-player-box');
     currentPlayerBox.firstChild.textContent += "'s turn";
 }
 
