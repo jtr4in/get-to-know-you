@@ -286,11 +286,11 @@ function updateCurrentPlayer() {
             div.style.backgroundColor = '';
             div.style.color = '';
         }
-        div.firstChild.textContent = div.firstChild.textContent.replace("'s turn", "");
+        div.firstChild.textContent = div.firstChild.textContent.replace(" is answering", "");
     });
 
     const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
-    currentPlayerBox.firstChild.textContent += "'s turn";
+    currentPlayerBox.firstChild.textContent += " is answering";
 }
 
 function resetToPlayerSetup() {
