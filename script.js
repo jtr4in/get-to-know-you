@@ -216,7 +216,6 @@ function answerQuestion() {
     const points = 1; // Change this to always award 1 point for questions
     players[currentPlayerIndex].score += points;
     updateScores();
-    animateScoreBox(currentPlayerIndex);
     switchPlayer();
     drawCard();
 }
@@ -225,7 +224,6 @@ function completeChallenge() {
     const points = isWithinTimeLimit ? 3 : 2;
     players[currentPlayerIndex].score += points;
     updateScores();
-    animateScoreBox(currentPlayerIndex);
     switchPlayer();
     drawCard();
 }
@@ -283,20 +281,31 @@ function updateCurrentPlayer() {
     const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
     currentPlayerBox.classList.add('current-player-box');
     currentPlayerBox.firstChild.textContent += "'s turn";
-
-    // Remove the background pop animation
-    // scoresContainer.classList.remove('background-pop-animation');
-    // void scoresContainer.offsetWidth; // Trigger reflow
-    // scoresContainer.classList.add('background-pop-animation');
 }
 
-function animateScoreBox(playerIndex) {
-    const scoreElement = document.getElementById(`player${playerIndex + 1}-score`);
-    scoreElement.classList.add('pop-animation');
-    // Remove the class after the animation completes
-    setTimeout(() => {
-        scoreElement.classList.remove('pop-animation');
-    }, 300); // 300ms matches the animation duration
+function resetToPlayerSetup() {
+    document.getElementById('game-area').classList.add('hidden');
+    document.getElementById('player-setup').classList.remove('hidden');
+    document.getElementById('reset-game').classList.add('hidden');
+    
+    // Reset the game state
+    players = [];
+    currentPlayerIndex = 0;
+    currentCard = null;
+    clearInterval(timer);
+    
+    // Clear player inputs
+    const playerInputs = document.getElementById('player-inputs');
+    playerInputs.innerHTML = `
+        <div class="player-input-group">
+            <input type="text" class="player-name" placeholder="Player 1 Name">
+            <input type="color" class="player-color" value="#FF0000">
+        </div>
+        <div class="player-input-group">
+            <input type="text" class="player-name" placeholder="Player 2 Name">
+            <input type="color" class="player-color" value="#2196F3">
+        </div>
+    `;
 }
 
 document.getElementById('add-player').addEventListener('click', addPlayer);
@@ -306,5 +315,6 @@ document.getElementById('main-card').addEventListener('click', handleCardClick);
 document.getElementById('flipped-card').addEventListener('click', handleCardClick);
 document.getElementById('category-select').addEventListener('change', drawCard);
 document.getElementById('reset-game').addEventListener('click', resetGame);
+document.getElementById('game-title').addEventListener('click', resetToPlayerSetup);
 
 // Initial setup is now handled by the startGame function
