@@ -213,7 +213,7 @@ function animateCardDisappear(cardElement) {
 }
 
 function answerQuestion() {
-    const points = isWithinTimeLimit ? 3 : 2;
+    const points = 1; // Change this to always award 1 point for questions
     players[currentPlayerIndex].score += points;
     updateScores();
     animateScoreBox(currentPlayerIndex);
@@ -284,10 +284,10 @@ function updateCurrentPlayer() {
     currentPlayerBox.classList.add('current-player-box');
     currentPlayerBox.firstChild.textContent += "'s turn";
 
-    // Add background pop animation
-    scoresContainer.classList.remove('background-pop-animation');
-    void scoresContainer.offsetWidth; // Trigger reflow
-    scoresContainer.classList.add('background-pop-animation');
+    // Remove the background pop animation
+    // scoresContainer.classList.remove('background-pop-animation');
+    // void scoresContainer.offsetWidth; // Trigger reflow
+    // scoresContainer.classList.add('background-pop-animation');
 }
 
 function animateScoreBox(playerIndex) {
