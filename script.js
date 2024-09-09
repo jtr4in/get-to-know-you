@@ -16,7 +16,6 @@ const cards = {
         { question: "What's the most interesting place you've ever visited?", challenge: "Describe the place using only five words." },
         { question: "If you could live anywhere in the world, where would it be?", challenge: "Draw a quick sketch of your dream home in this location." },
         { question: "What's your favorite type of music or band?", challenge: "Hum or sing a few bars from your favorite song." },
-        // Would You Rather cards
         { question: "Would you rather have the ability to fly but only as fast as a snail, or be able to run at super speed but only for 10 seconds at a time?", challenge: "Demonstrate your choice in slow motion." },
         { question: "Would you rather have a pet dinosaur or a pet dragon?", challenge: "Make the sound your chosen pet would make." },
         { question: "Would you rather be able to speak every language fluently but never be able to write, or be able to write in every language but never speak?", challenge: "Try to communicate your choice without speaking." },
@@ -113,7 +112,6 @@ const cards = {
         { question: "What is the most memorable trip we've taken together?", challenge: "Plan an imaginary dream vacation for us in 30 seconds." },
         { question: "What was the first thing you noticed about me?", challenge: "Draw a quick sketch highlighting that feature." },
         { question: "What do you remember about our first kiss?", challenge: "Describe it using only sound effects." },
-        // Spice Up Your Sex Life cards
         { question: "What is your biggest sexual fantasy?", challenge: "Write it down and seal it in an envelope to open later." },
         { question: "Is there a new position you'd like to try?", challenge: "Draw a stick figure diagram of it." },
         { question: "What's the most memorable sexual experience we've had?", challenge: "Recreate the mood with a 30-second interpretive dance." },
@@ -197,9 +195,7 @@ const cards = {
         { question: "What’s one way I show you that I care?", challenge: "Act out that moment in an exaggerated way." },
         { question: "What’s your favorite way to celebrate with me?", challenge: "Pretend we're celebrating together." },
         { question: "What’s one thing you hope we never stop doing?", challenge: "Describe it in five words or fewer." },
-    ]
-};
-,
+    ],
     'deep-thoughts': [
         // Deep and Personal cards
         { question: "What are your core values, and how do they shape your decisions?", challenge: "Create a quick acrostic poem using one of your core values." },
@@ -207,13 +203,12 @@ const cards = {
         { question: "What does happiness mean to you?", challenge: "Express your idea of happiness through a series of emojis." },
         { question: "What do you think is your greatest strength and your greatest weakness?", challenge: "Act out a scenario where your strength saves the day." },
         { question: "How do you handle conflicts or disagreements in relationships?", challenge: "Role-play a conflict resolution scenario with an imaginary person." },
-        // Hypothetical Scenarios cards
-        { question: "If you could only eat food that was shaped like animals or food that was colored like rainbows, which would you choose?", challenge: "Create a menu for your chosen food type." },
+       { question: "If you could only eat food that was shaped like animals or food that was colored like rainbows, which would you choose?", challenge: "Create a menu for your chosen food type." },
         { question: "Would you rather have a pet that can talk but only in riddles or one that can sing but only in opera?", challenge: "Imitate your chosen pet." },
         { question: "If you could switch lives with any fictional character for a day, who would it be and why?", challenge: "Act out a scene as that character." },
         { question: "Would you rather live in a world where everything is made of cheese or everything is made of marshmallows?", challenge: "Describe how you'd brush your teeth in this world." },
         { question: "If you could have any one of your childhood toys come to life, which would you choose and what would you do with it?", challenge: "Have a conversation with your chosen toy." },
-    { question: "What is one belief you hold that you feel defines you?", challenge: "Describe that belief using only body language." },
+        { question: "What is one belief you hold that you feel defines you?", challenge: "Describe that belief using only body language." },
         { question: "What do you think is the meaning of life?", challenge: "Act out your answer in a 10-second performance." },
         { question: "What is your biggest fear, and how do you deal with it?", challenge: "Pretend you're conquering that fear in real time." },
         { question: "What does friendship mean to you?", challenge: "Express friendship using only facial expressions." },
