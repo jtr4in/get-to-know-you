@@ -119,9 +119,6 @@ const cards = {
         { question: "What's the most memorable sexual experience we've had?", challenge: "Recreate the mood with a 30-second interpretive dance." },
         { question: "What's one thing you've always wanted to do in bed but haven't?", challenge: "Whisper it in your partner's ear." },
         { question: "Do you have any secret kinks or fetishes?", challenge: "Act it out using only facial expressions." },
-    const cards = {
-    'relationships': [
-        // Married Couples cards
         { question: "What is your favorite thing about our relationship?", challenge: "Describe it in three words using charades." },
         { question: "What is one thing we do that always makes you laugh?", challenge: "Reenact that funny moment." },
         { question: "If you could describe our relationship as a movie, what genre would it be?", challenge: "Act out a scene from that genre." },
