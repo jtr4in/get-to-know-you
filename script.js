@@ -549,7 +549,7 @@ function updateTimerDisplay() {
         timerValue.textContent = timeLeft;
         timerContainer.style.display = 'inline';
         completeText.textContent = '3 points';
-        timerNote.textContent = '-1 point at 0s';
+        timerNote.textContent = '';
     } else {
         timerContainer.style.display = 'none';
         completeText.textContent = '2 points';
