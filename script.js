@@ -69,7 +69,7 @@ const cards = {
         { question: "What's the most interesting book you've ever read?", challenge: "Pretend you're explaining the plot to someone who's never heard of it." },
         { question: "If you could have a personal robot, what would you ask it to do?", challenge: "Give your robot a command and react to its response." },
         { question: "What's your favorite app on your phone?", challenge: "Pretend you're using that app." },
-        { question: "If you were a fruit, what kind would you be?", challenge: "Describe yourself as that fruit without speaking." },
+        { question: "If you were a fruit, what kind would you be?", challenge: "Describe yourself as that fruit in five words." },
         { question: "What's the best concert or live event you've ever been to?", challenge: "Act out the most exciting moment from that event." },
         { question: "What's one thing you always keep in your bag or pocket?", challenge: "Pretend you're pulling it out and explaining why you need it." },
         { question: "If you could visit any planet, which one would it be?", challenge: "Pretend you're exploring that planet." },
@@ -575,11 +575,11 @@ function updateCurrentPlayer() {
             div.style.backgroundColor = '';
             div.style.color = '';
         }
-        div.firstChild.textContent = div.firstChild.textContent.replace(" is answering", "");
+        div.firstChild.textContent = div.firstChild.textContent.replace("'s answering", "");
     });
 
     const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
-    currentPlayerBox.firstChild.textContent += " is answering";
+    currentPlayerBox.firstChild.textContent += "'s answering";
 }
 
 function resetToPlayerSetup() {
@@ -634,6 +634,13 @@ function toggleRecallQuestions() {
     cardsSinceLastRecall = 0;
 }
 
+// Add this new function to handle logo click
+function handleLogoClick() {
+    if (!document.getElementById('game-area').classList.contains('hidden')) {
+        resetToPlayerSetup();
+    }
+}
+
 document.getElementById('add-player').addEventListener('click', addPlayer);
 document.getElementById('start-game').addEventListener('click', startGame);
 document.getElementById('draw-card').addEventListener('click', drawCard);
@@ -641,7 +648,7 @@ document.getElementById('main-card').addEventListener('click', handleCardClick);
 document.getElementById('flipped-card').addEventListener('click', handleCardClick);
 document.getElementById('category-select').addEventListener('change', drawCard);
 document.getElementById('reset-game').addEventListener('click', resetGame);
-document.getElementById('game-title').addEventListener('click', resetToPlayerSetup);
+document.getElementById('game-logo').addEventListener('click', handleLogoClick);
 document.getElementById('head-to-head').addEventListener('change', toggleHeadToHeadMode);
 document.getElementById('recall-questions').addEventListener('change', toggleRecallQuestions);
 
