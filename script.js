@@ -543,13 +543,13 @@ function updateTimerDisplay() {
     const timerContainer = document.getElementById('timer-container');
     const timerValue = document.getElementById('timer-value');
     const completeText = document.getElementById('complete-text');
-   
+    const timerNote = document.getElementById('timer-note');
 
     if (timeLeft > 0) {
         timerValue.textContent = timeLeft;
         timerContainer.style.display = 'inline';
         completeText.textContent = '3 points';
-        
+        timerNote.textContent = '';
     } else {
         timerContainer.style.display = 'none';
         completeText.textContent = '2 points';
@@ -599,11 +599,11 @@ function resetToPlayerSetup() {
     playerInputs.innerHTML = `
         <div class="player-input-group">
             <input type="text" class="player-name" placeholder="Player 1 Name">
-            <input type="color" class="player-color" value="#FF0000">
+            <input type="color" class="player-color" value="#cfe8fc">
         </div>
         <div class="player-input-group">
             <input type="text" class="player-name" placeholder="Player 2 Name">
-            <input type="color" class="player-color" value="#2196F3">
+            <input type="color" class="player-color" value="#a4ffaf">
         </div>
     `;
 }
