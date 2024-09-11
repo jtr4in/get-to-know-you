@@ -342,7 +342,6 @@ function startGame() {
     document.getElementById('game-area').classList.remove('hidden');
     
     document.getElementById('reset-game').classList.remove('hidden');
-    document.querySelector('.toggle-container').classList.remove('hidden'); // Add this line
     
     updatePlayerNames();
     updateScores();
@@ -350,12 +349,14 @@ function startGame() {
     setDefaultCategory(); // Add this line to set the default category
     drawCard();
     
-    // Show point system for multiplayer mode
+    // Show point system and toggle for multiplayer mode
     if (players.length > 1) {
         document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'block');
+        document.querySelector('.toggle-container').classList.remove('hidden');
     } else {
-        // Hide point system for single player mode
+        // Hide point system and toggle for single player mode
         document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'none');
+        document.querySelector('.toggle-container').classList.add('hidden');
     }
 }
 
@@ -548,7 +549,7 @@ function updateTimerDisplay() {
         timerValue.textContent = timeLeft;
         timerContainer.style.display = 'inline';
         completeText.textContent = '3 points';
-      
+        timerNote.textContent = '-1 point at 0s';
     } else {
         timerContainer.style.display = 'none';
         completeText.textContent = '2 points';
@@ -574,11 +575,11 @@ function updateCurrentPlayer() {
             div.style.backgroundColor = '';
             div.style.color = '';
         }
-        div.firstChild.textContent = div.firstChild.textContent.replace("'s answering", "");
+        div.firstChild.textContent = div.firstChild.textContent.replace(" is answering", "");
     });
 
     const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
-    currentPlayerBox.firstChild.textContent += "'s answering";
+    currentPlayerBox.firstChild.textContent += " is answering";
 }
 
 function resetToPlayerSetup() {
