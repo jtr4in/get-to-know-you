@@ -7,7 +7,7 @@ let currentPlayerIndex = 0;
 let isTimerDisabled = true;
 let isWithinTimeLimit = true;
 let isHeadToHeadMode = false;
-let playerAnswers = {};
+let isRecallEnabled = true;
 
 const cards = {
     'fun-and-light': [
@@ -69,8 +69,8 @@ const cards = {
         { question: "What's the most interesting book you've ever read?", challenge: "Pretend you're explaining the plot to someone who's never heard of it." },
         { question: "If you could have a personal robot, what would you ask it to do?", challenge: "Give your robot a command and react to its response." },
         { question: "What's your favorite app on your phone?", challenge: "Pretend you're using that app." },
-        { question: "If you were a fruit, what kind would you be?", challenge: "Describe yourself as that fruit in five words." },
-        { question: "What's the best concert or live event you've ever been to?", challenge: "Act out a scene from that event." },
+        { question: "If you were a fruit, what kind would you be?", challenge: "Describe yourself as that fruit without speaking." },
+        { question: "What's the best concert or live event you've ever been to?", challenge: "Act out the most exciting moment from that event." },
         { question: "What's one thing you always keep in your bag or pocket?", challenge: "Pretend you're pulling it out and explaining why you need it." },
         { question: "If you could visit any planet, which one would it be?", challenge: "Pretend you're exploring that planet." },
         { question: "What's your favorite snack?", challenge: "Pretend you're sharing it with everyone." },
@@ -123,8 +123,7 @@ const cards = {
         { question: "If our relationship had a theme song, what genre would it be?", challenge: "Act out a scene from that genre." },
         { question: "What's one thing I do that always makes you smile?", challenge: "Pretend you're reacting to that moment." },
         { question: "What's your favorite meal we've shared together?", challenge: "Describe that meal using only facial expressions." },
-        { question: "What's one thing we've accomplished together that you're proud of?", challenge: "Describe that accomplishment using only gestures." },
-        { question: "What is one thing we do together that you look forward to?", challenge: "Plan an activity we can do together in 30 seconds." },
+        { question: "What's one thing we do together that you love?", challenge: "Plan an activity we can do together in 30 seconds." },
         { question: "What do you think makes us a great team?", challenge: "Show it by pretending we're on a sports team together." },
         { question: "What is one thing you love about me?", challenge: "Describe it without using any words." },
         { question: "What's your favorite way to spend time with me?", challenge: "Act out that activity." },
@@ -136,12 +135,40 @@ const cards = {
         { question: "If our relationship had a theme song, what would it be?", challenge: "Hum or sing a few bars from the song." },
         { question: "What's the most thoughtful gift you've ever received from me?", challenge: "Pretend you're opening that gift again." },
         { question: "What's one thing we've accomplished together that you're proud of?", challenge: "Describe that accomplishment using only gestures." },
-        { question: "What is one thing we're really good at as a couple?", challenge: "Show it by acting out a scenario where we excel." },
-        { question: "What's one thing you love about our home?", challenge: "Describe it in five words." },
-        { question: "What's one thing you've learned from me since we've been together?", challenge: "Teach that lesson to an imaginary friend." },
+        { question: "What is one thing you think we should do more as a couple?", challenge: "Act out that activity." },
+        { question: "If we could plan our perfect weekend, what would we do?", challenge: "Describe it in five words or fewer." },
+        { question: "What's one way I've helped you become a better person?", challenge: "Describe it with only facial expressions." },
+        { question: "What's your favorite compliment I've ever given you?", challenge: "Act out receiving that compliment again." },
+        { question: "If we could relive one moment from our relationship, what would it be?", challenge: "Reenact that moment in exaggerated fashion." },
+        { question: "What's one quality of mine that you admire?", challenge: "Act out that quality in 10 seconds." },
+        { question: "What's one thing about our relationship that makes you feel loved?", challenge: "Show it by miming an action of love." },
+        { question: "If you could describe me in one word, what would it be?", challenge: "Act out that word using charades." },
+        { question: "What's the best surprise we've ever given each other?", challenge: "Pretend you're surprised all over again." },
+        { question: "What's the most adventurous thing we've done together?", challenge: "Act out a scene from that adventure." },
+        { question: "What's one thing you think we're really good at as a couple?", challenge: "Show it by acting out a scenario where we excel." },
+        { question: "What's our favorite way we show affection to each other?", challenge: "Mimic that gesture without words." },
+        { question: "What's one moment that made you feel really close to me?", challenge: "Describe that moment in five words." },
+        { question: "What's one thing you're really looking forward to doing with me in the future?", challenge: "Pretend we're doing that activity now." },
+        { question: "What's one thing you think makes our relationship unique?", challenge: "Act out that unique trait in 10 seconds." },
+        { question: "If our love was a movie, what would the title be?", challenge: "Act out the opening scene of that movie." },
+        { question: "What's one thing you think we could work on as a couple?", challenge: "Act out a scenario where we improve on that." },
+        { question: "What's the funniest thing we've ever done together?", challenge: "Reenact that funny moment in slow motion." },
+        { question: "What's one thing that makes you feel loved?", challenge: "Act it out without speaking." },
+        { question: "What's one thing we've learned about each other that has strengthened our relationship?", challenge: "Explain it in five words or fewer." },
+        { question: "What's one thing we've done that made you feel really happy?", challenge: "Pretend you're reliving that happy moment." },
+        { question: "What's one thing you want to do together but haven't had the chance?", challenge: "Plan out how we can make it happen." },
+        { question: "What's one tradition you hope we always keep?", challenge: "Describe that tradition using only gestures." },
+        { question: "What's one thing that always makes you think of me?", challenge: "Act out your thoughts without words." },
+        { question: "If we were to take a road trip anywhere, where would we go?", challenge: "Pretend you're giving directions to our destination." },
+        { question: "What's one place you can't wait to visit with me?", challenge: "Describe it using only sound effects." },
         { question: "What's your favorite thing about the way we communicate?", challenge: "Show it by miming a conversation between us." },
         { question: "What's one thing that makes you feel appreciated in our relationship?", challenge: "Act it out in 10 seconds." },
         { question: "What's your favorite thing to do to relax with me?", challenge: "Pretend you're doing that activity right now." },
+        { question: "What's one thing you think we're really good at as a couple?", challenge: "Show it by acting out a scenario where we excel." },
+        { question: "What's one thing you love about our home?", challenge: "Describe it in five words." },
+        { question: "What's one thing you've learned from me since we've been together?", challenge: "Teach that lesson to an imaginary friend." },
+        { question: "What's your favorite thing about the way we handle challenges?", challenge: "Act out how we handle challenges." },
+        { question: "If you could give us one piece of advice for the future, what would it be?", challenge: "Pretend you're giving us that advice in a dramatic voice." },
         { question: "What's one thing we always do together that you look forward to?", challenge: "Pretend you're about to do that thing." },
         { question: "What's one thing you appreciate about how we make decisions together?", challenge: "Act out how we typically make decisions." },
         { question: "What's one thing that makes you feel proud of us?", challenge: "Describe it in five words or fewer." },
@@ -172,7 +199,7 @@ const cards = {
         { question: "What does happiness mean to you?", challenge: "Express your idea of happiness through a series of emojis." },
         { question: "What do you think is your greatest strength and your greatest weakness?", challenge: "Act out a scenario where your strength saves the day." },
         { question: "How do you handle conflicts or disagreements in relationships?", challenge: "Role-play a conflict resolution scenario with an imaginary person." },
-        { question: "If you could only eat food that was shaped like animals or food that was colored like rainbows, which would you choose?", challenge: "Create a menu for your chosen food type." },
+       { question: "If you could only eat food that was shaped like animals or food that was colored like rainbows, which would you choose?", challenge: "Create a menu for your chosen food type." },
         { question: "Would you rather have a pet that can talk but only in riddles or one that can sing but only in opera?", challenge: "Imitate your chosen pet." },
         { question: "If you could switch lives with any fictional character for a day, who would it be and why?", challenge: "Act out a scene as that character." },
         { question: "Would you rather live in a world where everything is made of cheese or everything is made of marshmallows?", challenge: "Describe how you'd brush your teeth in this world." },
@@ -262,9 +289,27 @@ const cards = {
     ]
 };
 
+let questionHistory = [];
+const RECALL_FREQUENCY = 5; // Ask a recall question every 5 cards
+let cardsSinceLastRecall = 0;
+
+const recallChallenges = [
+    "Act out {player}'s likely response without using words.",
+    "Draw a quick sketch that represents {player}'s possible answer.",
+    "Use only facial expressions to convey {player}'s probable reaction to the question.",
+    "Hum a tune that you think represents {player}'s answer.",
+    "Strike a pose that embodies what you think {player}'s answer might have been.",
+    "Use three emojis to represent {player}'s possible answer.",
+    "Mime an activity that could be related to {player}'s answer.",
+    "Create a short rhyme or jingle about what you think {player} might have said.",
+    "Use interpretive dance to express {player}'s potential answer.",
+    "Make a sound effect that represents {player}'s likely response."
+];
+
 function initializeSinglePlayer() {
     players = [{ name: "Player 1", score: 0 }];
     startGame();
+    // Hide point system for single player mode
     document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'none');
 }
 
@@ -293,146 +338,23 @@ function startGame() {
         color: group.querySelector('.player-color').value
     }));
     
-    playerAnswers = players.reduce((acc, player) => {
-        acc[player.name] = [];
-        return acc;
-    }, {});
-    
     document.getElementById('player-setup').classList.add('hidden');
     document.getElementById('game-area').classList.remove('hidden');
+    
     document.getElementById('reset-game').classList.remove('hidden');
     
     updatePlayerNames();
     updateScores();
     updateCurrentPlayer();
+    setDefaultCategory(); // Add this line to set the default category
     drawCard();
     
+    // Show point system for multiplayer mode
     if (players.length > 1) {
         document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'block');
     } else {
+        // Hide point system for single player mode
         document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'none');
-    }
-}
-
-function storeAnswer(playerName, question, answer) {
-    if (!playerAnswers[playerName]) {
-        playerAnswers[playerName] = [];
-    }
-    playerAnswers[playerName].push({ question, answer });
-    logPlayerAnswers();
-}
-
-function shouldShowTwist() {
-    if (players.length < 2) return false;
-    const scores = players.map(p => p.score);
-    const maxScore = Math.max(...scores);
-    const minScore = Math.min(...scores);
-    const shouldShow = maxScore - minScore >= 1 && Math.random() < 0.8; // 80% chance when score difference is 1+
-    console.log("Should show twist:", shouldShow, "Score difference:", maxScore - minScore);
-    return shouldShow;
-}
-
-function getTwistQuestion() {
-    const behindPlayerIndex = players.findIndex(p => p.score === Math.min(...players.map(p => p.score)));
-    const aheadPlayerName = players.find(p => p.score === Math.max(...players.map(p => p.score))).name;
-    const aheadPlayerAnswers = playerAnswers[aheadPlayerName];
-    if (aheadPlayerAnswers.length === 0) return null;
-    const randomAnswer = aheadPlayerAnswers[Math.floor(Math.random() * aheadPlayerAnswers.length)];
-    return {
-        question: `What did ${aheadPlayerName} say their answer was for: "${randomAnswer.question}"?`,
-        challenge: `The correct answer was: "${randomAnswer.answer}"`,
-        isTwist: true
-    };
-}
-
-function drawCard() {
-    console.log("Drawing card, current player:", players[currentPlayerIndex].name);
-    console.log("Current player answers:", playerAnswers[players[currentPlayerIndex].name]);
-    
-    if (shouldShowTwist()) {
-        console.log("Attempting to get twist question");
-        const twistCard = getTwistQuestion();
-        if (twistCard) {
-            console.log("Twist question found:", twistCard);
-            currentCard = twistCard;
-            displayCard();
-            return;
-        } else {
-            console.log("No twist question available");
-        }
-    }
-    
-    const category = getSelectedCategory();
-    const categoryCards = getCardsFromCategory(category);
-    
-    let newCard;
-    do {
-        newCard = categoryCards[Math.floor(Math.random() * categoryCards.length)];
-    } while (newCard === currentCard && categoryCards.length > 1);
-    
-    currentCard = newCard;
-    displayCard();
-    resetTimer();
-}
-
-function displayCard() {
-    const mainCardElement = document.getElementById('main-card');
-    const flippedCardElement = document.getElementById('flipped-card');
-    
-    mainCardElement.querySelector('#question').textContent = currentCard.question;
-    flippedCardElement.querySelector('#challenge').textContent = currentCard.challenge;
-    
-    if (currentCard.isTwist) {
-        mainCardElement.style.backgroundColor = '#FFA500'; // Orange background for twist cards
-        flippedCardElement.style.backgroundColor = '#FFA500';
-    } else {
-        mainCardElement.style.backgroundColor = ''; // Reset to default
-        flippedCardElement.style.backgroundColor = '';
-    }
-    
-    animateCardPopUp(mainCardElement);
-    animateCardPopUp(flippedCardElement);
-}
-
-function answerQuestion() {
-    const currentPlayer = players[currentPlayerIndex];
-    const answer = prompt(`${currentPlayer.name}, what's your answer?`);
-    if (answer !== null && answer.trim() !== '') {
-        console.log("Storing answer for", currentPlayer.name, "Question:", currentCard.question, "Answer:", answer);
-        storeAnswer(currentPlayer.name, currentCard.question, answer);
-        const points = 1;
-        currentPlayer.score += points;
-        updateScores();
-        switchPlayer();
-        drawCard();
-    } else {
-        console.log("No answer provided");
-    }
-    if (document.getElementById('head-to-head').checked) {
-        toggleHeadToHeadMode();
-    }
-}
-
-function completeChallenge() {
-    let points;
-    if (currentCard.isTwist) {
-        const correctAnswer = prompt(`What's the correct answer?`);
-        if (correctAnswer && correctAnswer.toLowerCase() === currentCard.challenge.split('"')[1].toLowerCase()) {
-            points = isWithinTimeLimit ? 2 : 1;
-            alert("Correct! You've earned " + points + " points.");
-        } else {
-            points = 0;
-            alert("Sorry, that's incorrect. The correct answer was: " + currentCard.challenge.split('"')[1]);
-        }
-    } else {
-        points = isWithinTimeLimit ? 3 : 2;
-    }
-    players[currentPlayerIndex].score += points;
-    updateScores();
-    switchPlayer();
-    drawCard();
-    if (document.getElementById('head-to-head').checked) {
-        toggleHeadToHeadMode();
     }
 }
 
@@ -481,7 +403,12 @@ function switchPlayer() {
 }
 
 function getSelectedCategory() {
-    return document.getElementById('category-select').value;
+    return document.getElementById('category-select').value || 'fun-and-light';
+}
+
+function setDefaultCategory() {
+    const categorySelect = document.getElementById('category-select');
+    categorySelect.value = 'fun-and-light';
 }
 
 function getCardsFromCategory(category) {
@@ -492,17 +419,24 @@ function getCardsFromCategory(category) {
 }
 
 function drawCard() {
-    const category = getSelectedCategory();
-    const categoryCards = getCardsFromCategory(category);
+    cardsSinceLastRecall++;
     
-    let newCard;
-    do {
-        newCard = categoryCards[Math.floor(Math.random() * categoryCards.length)];
-    } while (newCard === currentCard && categoryCards.length > 1);
-    
-    currentCard = newCard;
-    displayCard();
-    resetTimer();
+    if (isRecallEnabled && cardsSinceLastRecall >= RECALL_FREQUENCY && questionHistory.length > 0) {
+        generateRecallQuestion();
+        cardsSinceLastRecall = 0;
+    } else {
+        const category = getSelectedCategory();
+        const categoryCards = getCardsFromCategory(category);
+        
+        let newCard;
+        do {
+            newCard = categoryCards[Math.floor(Math.random() * categoryCards.length)];
+        } while (newCard === currentCard && categoryCards.length > 1);
+        
+        currentCard = newCard;
+        displayCard();
+        resetTimer();
+    }
 }
 
 function displayCard() {
@@ -511,6 +445,15 @@ function displayCard() {
     
     mainCardElement.querySelector('#question').textContent = currentCard.question;
     flippedCardElement.querySelector('#challenge').textContent = currentCard.challenge;
+    
+    // Add or remove the recall-question class based on whether it's a recall question
+    if (currentCard.isRecall) {
+        mainCardElement.classList.add('recall-question');
+        flippedCardElement.classList.add('recall-question');
+    } else {
+        mainCardElement.classList.remove('recall-question');
+        flippedCardElement.classList.remove('recall-question');
+    }
     
     // Animate cards popping up
     animateCardPopUp(mainCardElement);
@@ -540,7 +483,7 @@ function handleCardClick(event) {
 }
 
 function animateCardDisappear(cardElement) {
-    cardElement.classList.remove('pop-up', 'disappear-to-left', 'disappear-to-right');
+    cardElement.classList.remove('pop-up');
     void cardElement.offsetWidth; // Trigger reflow
     cardElement.classList.add(cardElement.id === 'main-card' ? 'disappear-to-left' : 'disappear-to-right');
 }
@@ -549,6 +492,18 @@ function answerQuestion() {
     const points = 1; // Change this to always award 1 point for questions
     players[currentPlayerIndex].score += points;
     updateScores();
+    
+    // Store the question for potential recall later
+    questionHistory.push({
+        question: currentCard.question,
+        player: players[currentPlayerIndex].name
+    });
+    
+    // Limit the history to the last 10 questions
+    if (questionHistory.length > 10) {
+        questionHistory.shift();
+    }
+    
     switchPlayer();
     drawCard();
     if (document.getElementById('head-to-head').checked) {
@@ -655,6 +610,27 @@ function toggleHeadToHeadMode() {
     document.body.classList.toggle('head-to-head-mode', isHeadToHeadMode);
 }
 
+function generateRecallQuestion() {
+    const recalledQuestion = questionHistory[Math.floor(Math.random() * questionHistory.length)];
+    const recallPlayer = players.find(player => player.name !== recalledQuestion.player);
+    const challenge = recallChallenges[Math.floor(Math.random() * recallChallenges.length)];
+    
+    currentCard = {
+        question: `What did ${recalledQuestion.player} answer to this question: "${recalledQuestion.question}"?`,
+        challenge: challenge.replace('{player}', recalledQuestion.player),
+        isRecall: true
+    };
+    
+    displayCard();
+    resetTimer();
+}
+
+function toggleRecallQuestions() {
+    isRecallEnabled = document.getElementById('recall-questions').checked;
+    // Reset the card count when toggling to avoid immediate recall question
+    cardsSinceLastRecall = 0;
+}
+
 document.getElementById('add-player').addEventListener('click', addPlayer);
 document.getElementById('start-game').addEventListener('click', startGame);
 document.getElementById('draw-card').addEventListener('click', drawCard);
@@ -664,5 +640,6 @@ document.getElementById('category-select').addEventListener('change', drawCard);
 document.getElementById('reset-game').addEventListener('click', resetGame);
 document.getElementById('game-title').addEventListener('click', resetToPlayerSetup);
 document.getElementById('head-to-head').addEventListener('change', toggleHeadToHeadMode);
+document.getElementById('recall-questions').addEventListener('change', toggleRecallQuestions);
 
 // Initial setup is now handled by the startGame function
