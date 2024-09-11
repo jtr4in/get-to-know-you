@@ -8,9 +8,16 @@
 </head>
 <body>
     <div id="game-container">
-        <div id="header">
-            <h3 id="game-title">Quip Quirk</h3>
+        <div id="game-header">
             <button id="reset-game" class="hidden">Reset Game</button>
+            <h1 id="game-title">Quip Quirk</h1>
+            <div class="toggle-container hidden"> <!-- Add 'hidden' class here -->
+                <label class="switch">
+                    <input type="checkbox" id="head-to-head">
+                    <span class="slider round"></span>
+                </label>
+                <span>Playing Across</span>
+            </div>
         </div>
         <div id="player-setup">
             <div id="player-inputs">
@@ -55,10 +62,6 @@
                     <option value="relationships">Relationships</option>
                     <option value="deep-thoughts">Deep Thoughts</option>
                 </select>
-                <div id="head-to-head-toggle">
-                    <label for="head-to-head">Playing Across</label>
-                    <input type="checkbox" id="head-to-head">
-                </div>
                 <div id="recall-toggle">
                     <label for="recall-questions">Recall Questions</label>
                     <input type="checkbox" id="recall-questions" checked>

@@ -349,12 +349,14 @@ function startGame() {
     setDefaultCategory(); // Add this line to set the default category
     drawCard();
     
-    // Show point system for multiplayer mode
+    // Show point system and toggle for multiplayer mode
     if (players.length > 1) {
         document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'block');
+        document.querySelector('.toggle-container').classList.remove('hidden');
     } else {
-        // Hide point system for single player mode
+        // Hide point system and toggle for single player mode
         document.querySelectorAll('.card-footer').forEach(footer => footer.style.display = 'none');
+        document.querySelector('.toggle-container').classList.add('hidden');
     }
 }
 
@@ -584,6 +586,7 @@ function resetToPlayerSetup() {
     document.getElementById('game-area').classList.add('hidden');
     document.getElementById('player-setup').classList.remove('hidden');
     document.getElementById('reset-game').classList.add('hidden');
+    document.querySelector('.toggle-container').classList.add('hidden'); // Add this line
     
     // Reset the game state
     players = [];
