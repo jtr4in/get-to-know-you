@@ -543,13 +543,13 @@ function updateTimerDisplay() {
     const timerContainer = document.getElementById('timer-container');
     const timerValue = document.getElementById('timer-value');
     const completeText = document.getElementById('complete-text');
-    const timerNote = document.getElementById('timer-note');
+   
 
     if (timeLeft > 0) {
         timerValue.textContent = timeLeft;
         timerContainer.style.display = 'inline';
         completeText.textContent = '3 points';
-        timerNote.textContent = '';
+        
     } else {
         timerContainer.style.display = 'none';
         completeText.textContent = '2 points';
