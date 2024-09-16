@@ -650,7 +650,7 @@ function generateRecallQuestion() {
     const challenge = recallChallenges[Math.floor(Math.random() * recallChallenges.length)];
     
     currentCard = {
-        question: `What was ${recalledQuestion.player}'s answer to: "${recalledQuestion.question}"`,
+        question: `${recalledQuestion.player}'s answer to: "${recalledQuestion.question}"`,
         challenge: challenge.replace('{player}', recalledQuestion.player),
         isRecall: true
     };
