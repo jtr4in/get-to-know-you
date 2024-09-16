@@ -557,7 +557,7 @@ function completeChallenge() {
 
 function resetTimer() {
     clearInterval(timer);
-    timeLeft = 30;
+    timeLeft = 90;
     isWithinTimeLimit = true;
     updateTimerDisplay();
     timer = setInterval(() => {
