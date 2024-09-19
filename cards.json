@@ -1,14 +1,14 @@
-{
-  "fun-and-light": [
-    { "question": "What's your favorite way to spend a weekend?", "challenge": "Describe your answer while holding an imaginary microphone." },
-    { "question": "Do you have any hidden talents?", "challenge": "Say your answer while acting like you're talking to a baby." }
-  ],
-  "relationships": [
-    { "question": "What was your first impression of me?", "challenge": "Answer while pretending you're in a dramatic soap opera scene." },
-    { "question": "What is your favorite memory from when we were dating?", "challenge": "Answer your question in slow motion, like you're in a movie." }
-  ],
-  "deep-thoughts": [
-    { "question": "What are your core values, and how do they shape your decisions?", "challenge": "Say your answer while pretending you're playing charades." },
-    { "question": "How do you define success in your life?", "challenge": "Answer your question while speaking like a sports commentator." }
-  ]
-}
+[
+    {
+        "question": "What's the most interesting place you've ever visited?",
+        "challenge": "Describe the place using only five words."
+    },
+    {
+        "question": "What's your favorite way to spend a weekend?",
+        "challenge": "Act out your ideal weekend in charades."
+    },
+    {
+        "question": "Do you have any hidden talents?",
+        "challenge": "Demonstrate your hidden talent or make one up on the spot."
+    }
+]
