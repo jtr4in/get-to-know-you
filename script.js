@@ -334,7 +334,7 @@ const recallChallenges = [
     "Answer as if you're creating an advertisement for it.",
     "Answer as if you're on a reality TV show.",
     "Answer as if you're in a movie trailer voice.",
-    "Answer as if you're announcing the winner of a competition."
+    "Answer as if you're announcing the winner of a competition.",
     "Answer as if you're a professor giving a lecture.",
     "Answer as if you're a game show host revealing the answer.",
     "Answer as if you're giving an Oscar acceptance speech.",
@@ -354,7 +354,7 @@ const recallChallenges = [
     "Answer as if you're leading a tour group through a museum.",
     "Answer as if you're hosting a late-night talk show.",
     "Answer as if you're in a police interrogation.",
-    "Answer as if you're a stand-up comedian telling a joke."
+    "Answer as if you're a stand-up comedian telling a joke.",
     "Answer as if you're a race car driver giving a post-race interview.",
     "Answer as if you're an astronaut reporting from space.",
     "Answer as if you're a chef describing a dish on a cooking show.",
@@ -374,7 +374,7 @@ const recallChallenges = [
     "Answer as if you're a fashion designer describing a runway look.",
     "Answer as if you're a detective revealing the conclusion to a mystery.",
     "Answer as if you're a parent explaining a life lesson to a child.",
-    "Answer as if you're a poet reciting a heartfelt piece."
+    "Answer as if you're a poet reciting a heartfelt piece.",
     "Answer as if you're a teacher explaining a math problem.",
     "Answer as if you're a tour guide on a safari.",
     "Answer as if you're an actor rehearsing a dramatic monologue.",
@@ -415,7 +415,7 @@ const recallChallenges = [
     "Answer as if you're a sailor recounting an epic storm at sea.",
     "Answer as if you're a game show contestant answering the final question.",
     "Answer as if you're a judge on a talent competition.",
-    "Answer as if you're a sports announcer calling the final seconds of a game."
+    "Answer as if you're a sports announcer calling the final seconds of a game.",
     "Answer as if you're trying to explain it while balancing on a unicycle.",
     "Answer as if you're a cat explaining the secret to catching the red dot.",
     "Answer as if you're a goldfish with a 3-second memory.",
