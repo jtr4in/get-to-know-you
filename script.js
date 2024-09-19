@@ -455,7 +455,7 @@ const recallChallenges = [
     "Answer as if you're a spaghetti noodle trying not to be overcooked.",
     "Answer as if you're a penguin auditioning for a Broadway musical.",
     "Answer as if you're a fork trying to understand the purpose of a spoon.",
-    "Answer as if you're a rubber duck leading a group of synchronized swimmers."
+    "Answer as if you're a rubber duck leading a group of synchronized swimmers.",
 ];
 
 function initializeSinglePlayer() {
