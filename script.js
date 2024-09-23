@@ -10,7 +10,7 @@ let isHeadToHeadMode = false;
 let isRecallEnabled = true;
 let isTimerEnabled = true;
 let selectedCategory = 'Icebreaker';
-let scoreLimit = 10;
+let scoreLimit = 20;
 
 const cards = {
     'Icebreaker': [
@@ -59,8 +59,33 @@ const recallChallengesIcebreaker = [
     "Answer using only sound effects.",
     "Answer while clapping between each word.",
     "Answer as if you're on a news broadcast.",
-    "Answer while mimicking a robot."
+    "Answer while mimicking a robot.",
+    "Answer as if you're teaching a kindergarten class.",
+    "Answer while tapping your fingers on the table.",
+    "Answer like you're in a rap battle.",
+    "Answer while pretending to juggle.",
+    "Answer as if you're telling a joke to make someone laugh.",
+    "Answer as if you're giving a tourist guide tour.",
+    "Answer while pretending to play an instrument.",
+    "Answer while snapping your fingers with each word.",
+    "Answer like you're describing a cartoon character.",
+    "Answer with exaggerated hand movements.",
+    "Answer while standing up and spinning around.",
+    "Answer as if you're acting in a silent film.",
+    "Answer in the style of a commercial jingle.",
+    "Answer while giving thumbs up after every sentence.",
+    "Answer as if you're a sports coach motivating your team.",
+    "Answer while drumming your fingers like a drumroll.",
+    "Answer while pretending to blow bubbles.",
+    "Answer with your arms crossed the whole time.",
+    "Answer as if you're casting a spell.",
+    "Answer as if you're announcing a surprise party.",
+    "Answer while drawing an imaginary picture in the air.",
+    "Answer as if you're walking on a tightrope.",
+    "Answer as if you're reading a bedtime story."
 ];
+
+
 
 const recallChallengesFirstDate = [
     "Answer while maintaining a playful smile.",
@@ -72,8 +97,33 @@ const recallChallengesFirstDate = [
     "Answer while softly humming.",
     "Answer as if you're leaving a cute voice message.",
     "Answer while playfully mimicking the other person's voice.",
+    "Answer while looking deeply into their eyes.",
+    "Answer as if you're on a first phone call with a crush.",
+    "Answer with a playful wink at the end.",
+    "Answer as if you're texting a cute emoji.",
+    "Answer as if you're writing a flirty text message.",
+    "Answer while lightly drumming your fingers on the table.",
+    "Answer like you're planning a surprise date.",
+    "Answer as if you're asking someone out for the first time.",
+    "Answer while blushing (pretend!).",
+    "Answer while gently leaning forward.",
+    "Answer with a playful tone.",
+    "Answer while resting your chin in your hand.",
+    "Answer as if you're on a video call with someone you're excited to meet.",
+    "Answer while gently tapping the table with your fingers.",
+    "Answer like you're revealing your secret crush.",
+    "Answer with a warm laugh.",
+    "Answer while subtly complimenting the other player.",
+    "Answer while pretending to sip a drink.",
+    "Answer with a gentle, teasing tone.",
+    "Answer as if you're writing a sweet note to leave on someone's desk.",
+    "Answer as if you're on a romantic walk.",
+    "Answer while holding a smile the entire time.",
+    "Answer while mimicking a love song lyric.",
     "Answer while giving a quick compliment."
 ];
+
+
 
 const recallChallengesDating = [
     "Answer as if you're writing in your diary.",
@@ -85,8 +135,33 @@ const recallChallengesDating = [
     "Answer while smiling warmly.",
     "Answer as if you're sharing a favorite memory.",
     "Answer while holding the other player's gaze.",
+    "Answer like you're telling your best friend how much you like someone.",
+    "Answer while recalling your favorite memory of a date.",
+    "Answer while lightly touching their arm.",
+    "Answer as if you're planning a future adventure together.",
+    "Answer while holding hands with the other player.",
+    "Answer as if you're confessing something sweet.",
+    "Answer while giving a gentle nod after each sentence.",
+    "Answer as if you're writing in your journal about them.",
+    "Answer while pretending to take their hand and lead them somewhere.",
+    "Answer with a soft voice and a gentle laugh.",
+    "Answer as if you're sharing a secret you only tell someone special.",
+    "Answer while tracing an invisible heart on the table.",
+    "Answer as if you're writing an anniversary card.",
+    "Answer while describing how you feel in one word.",
+    "Answer like you're telling your family about the person you love.",
+    "Answer as if you're giving a toast at a romantic dinner.",
+    "Answer while daydreaming about your future together.",
+    "Answer while brushing a strand of hair behind your ear (or pretend to).",
+    "Answer as if you're planning a cozy night in together.",
+    "Answer while touching their hand gently.",
+    "Answer while mimicking the sound of laughter you share.",
+    "Answer while softly whispering part of your response.",
+    "Answer as if you're gazing at the stars together.",
     "Answer as if you're planning a surprise for your partner."
 ];
+
+
 
 const recallChallengesLongterm = [
     "Answer as if you're writing your wedding vows.",
@@ -98,21 +173,59 @@ const recallChallengesLongterm = [
     "Answer while lightly touching the other person’s shoulder.",
     "Answer as if you're renewing your vows.",
     "Answer while reflecting on your future together.",
-    "Answer while recalling your happiest moment together."
+    "Answer while reflecting on a major milestone you've shared.",
+    "Answer as if you're writing your future together.",
+    "Answer while softly repeating the last word of your answer.",
+    "Answer while recalling your happiest memory together.",
+    "Answer while gently touching their arm.",
+    "Answer while thinking about how far you've come as a couple.",
+    "Answer as if you're reminiscing about your wedding day.",
+    "Answer while reflecting on the first time you knew they were special.",
+    "Answer while looking into their eyes the entire time.",
+    "Answer while sharing how proud you are of them.",
+    "Answer while gently holding their hand.",
+    "Answer while softly complimenting their best quality.",
+    "Answer while gently reminiscing about your shared dreams.",
+    "Answer as if you're talking about how much you've grown together.",
+    "Answer while sharing something you've learned from them.",
+    "Answer while reflecting on your future together.",
+    "Answer while thinking about what makes them unique.",
+    "Answer while holding back a happy tear.",
+    "Answer as if you're making a promise for the future.",
+    "Answer as if you're writing them a love letter for the next decade.",
+    "Answer while reflecting on your favorite date with them.",
+    "Answer while softly recalling a shared inside joke."
 ];
 
+
 const recallChallengesSpicy = [
-    "Answer while leaning in close.",
-    "Answer while softly brushing your partner’s hand.",
-    "Answer with a sultry tone.",
-    "Answer as if you're whispering a secret.",
-    "Answer while slowly tracing a shape with your finger.",
-    "Answer as if you're sharing a hidden fantasy.",
-    "Answer while biting your lip.",
-    "Answer as if you're describing a dream.",
-    "Answer while softly running your fingers through your hair.",
-    "Answer while giving a flirty smile."
+    "Answer while gently holding each other's gaze for 10 seconds before speaking.",
+    "Answer while tracing your partner’s hand with your fingertips.",
+    "Answer while softly caressing your partner’s face with both hands.",
+    "Answer while placing your hand over your partner’s heart and feeling their heartbeat.",
+    "Answer while giving each other a slow, meaningful hug before speaking.",
+    "Answer while holding hands and interlocking fingers.",
+    "Answer while whispering your response, leaning in close to their ear.",
+    "Answer while gently kissing your partner’s forehead before you speak.",
+    "Answer while placing a soft kiss on their lips after each sentence.",
+    "Answer while gently caressing your partner’s neck with your fingertips.",
+    "Answer while running your hand slowly down their back.",
+    "Answer while placing your forehead gently against theirs.",
+    "Answer while softly brushing your lips against their cheek.",
+    "Answer while taking a slow, deep breath together before responding.",
+    "Answer while wrapping your arms around each other and holding them close.",
+    "Answer while giving your partner a soft, lingering kiss on their hand.",
+    "Answer while gently placing your hand on their chest, feeling their breath.",
+    "Answer while softly stroking their arm or shoulder as you speak.",
+    "Answer while maintaining physical contact—whether through touch or leaning in.",
+    "Answer while sitting close, your legs or feet touching throughout.",
+    "Answer while placing a kiss on their neck before speaking.",
+    "Answer while gently brushing your fingers through their hair.",
+    "Answer while holding each other tightly, focusing on the warmth between you.",
+    "Answer while caressing their face slowly, looking deeply into their eyes.",
+    "Answer while taking turns kissing each other’s hands and wrists."
 ];
+
 
 
 function initializeSinglePlayer() {
@@ -155,7 +268,7 @@ function startGame() {
     
     document.getElementById('reset-game').classList.remove('hidden');
     
-    scoreLimit = parseInt(document.getElementById('score-limit').value) || 10;
+    scoreLimit = parseInt(document.getElementById('score-limit').value) || 20;
     
     // Initialize recall setting
     isRecallEnabled = document.getElementById('recall-questions').checked;
@@ -492,7 +605,7 @@ function resetToPlayerSetup() {
     document.getElementById('category-slider').value = '1';
     document.getElementById('category-value').textContent = 'Icebreaker';
     
-    document.getElementById('score-limit').value = '10';
+    document.getElementById('score-limit').value = '20';
 }
 
 function toggleHeadToHeadMode() {
