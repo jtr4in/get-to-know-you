@@ -1826,7 +1826,18 @@ body.head-to-head-mode #head-to-head-toggle {
     gap: 10px;
     margin-bottom: 1rem;
 }
+#start-game {
+    background-color: #FF69B4 !important; /* HotPink */
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease !important;
+}
 
+#start-game:hover {
+    background-color: #FF1493 !important; /* DeepPink */
+}
 #add-player, #start-game, #settings-button {
     padding: 8px 16px;
     font-size: 1rem;
