@@ -9,26 +9,39 @@ let isWithinTimeLimit = true;
 let isHeadToHeadMode = false;
 let isRecallEnabled = true;
 let isTimerEnabled = true;
-let selectedCategory = 'all';
+let selectedCategory = 'Icebreaker';
+let scoreLimit = 10;
 
 const cards = {
-    'fun-and-light': [
+    'Icebreaker': [
         { question: "What's your favorite way to spend a weekend?" },
         { question: "Do you have any hidden talents?" },
         { question: "What's the most interesting place you've ever visited?" },
         { question: "If you could live anywhere in the world, where would it be?" },
-
     ],
-    'relationships': [
+    'First Date': [
+        { question: "What's your ideal first date?" },
+        { question: "What's the most adventurous thing you've ever done?" },
+        { question: "What's your favorite book or movie, and why?" },
+        { question: "What's your passion in life?" },
+    ],
+    'Dating': [
         { question: "What was your first impression of me?" },
         { question: "What is your favorite memory from when we were dating?" },
-       
+        { question: "What's your love language?" },
+        { question: "Where do you see our relationship in 5 years?" },
     ],
-    'first-date': [
-        { question: "What are your core values, and how do they shape your decisions?" },
-        { question: "How do you define success in your life?" },
-        { question: "What does happiness mean to you?" },
-      
+    'Married': [
+        { question: "What are your core values, and how do they shape our marriage?" },
+        { question: "How do you define success in our relationship?" },
+        { question: "What's your favorite thing about being married to me?" },
+        { question: "How can we keep our relationship exciting and fresh?" },
+    ],
+    'Spicy': [
+        { question: "What's your biggest fantasy?" },
+        { question: "What's something new you'd like to try in the bedroom?" },
+        { question: "What's the most daring place you've ever considered being intimate?" },
+        { question: "If you could plan a perfect romantic getaway, what would it include?" },
     ]
 };
 
@@ -78,12 +91,17 @@ function startGame() {
     }));
     
     // Store the selected category
-    selectedCategory = document.getElementById('category-select').value;
+    selectedCategory = getSelectedCategory();
     
     document.getElementById('player-setup').classList.add('hidden');
     document.getElementById('game-area').classList.remove('hidden');
     
     document.getElementById('reset-game').classList.remove('hidden');
+    
+    scoreLimit = parseInt(document.getElementById('score-limit').value) || 10;
+    
+    // Initialize recall setting
+    isRecallEnabled = document.getElementById('recall-questions').checked;
     
     updatePlayerNames();
     updateScores();
@@ -146,7 +164,9 @@ function switchPlayer() {
 }
 
 function getSelectedCategory() {
-    return document.getElementById('category-select').value || 'fun-and-light';
+    const sliderValue = document.getElementById('category-slider').value;
+    const categories = ['Icebreaker', 'First Date', 'Dating', 'Married', 'Spicy'];
+    return categories[parseInt(sliderValue) - 1];
 }
 
 function getCardsFromCategory(category) {
@@ -253,10 +273,12 @@ function answerQuestion() {
         questionHistory.shift();
     }
     
-    switchPlayer();
-    drawCard();
-    if (document.getElementById('head-to-head').checked) {
-        toggleHeadToHeadMode();
+    if (!checkGameEnd()) {
+        switchPlayer();
+        drawCard();
+        if (document.getElementById('head-to-head').checked) {
+            flipView();
+        }
     }
 }
 
@@ -264,47 +286,74 @@ function completeChallenge() {
     const points = isTimerEnabled ? (isWithinTimeLimit ? 3 : 2) : 2;
     players[currentPlayerIndex].score += points;
     updateScores();
-    switchPlayer();
-    drawCard();
-    if (document.getElementById('head-to-head').checked) {
-        toggleHeadToHeadMode();
+    
+    if (!checkGameEnd()) {
+        switchPlayer();
+        drawCard();
+        if (document.getElementById('head-to-head').checked) {
+            flipView();
+        }
     }
 }
 
-function resetTimer() {
+let isTimerRunning = false;
+
+function toggleTimer() {
+    const timerButton = document.getElementById('timer-button');
+    
+    if (!isTimerRunning) {
+        // Start the timer
+        isTimerRunning = true;
+        isTimerEnabled = true;
+        timerButton.textContent = 'Stop Timer';
+        timerButton.classList.add('active');
+        startTimer();
+    } else {
+        // Stop the timer
+        stopTimer();
+    }
+}
+
+function startTimer() {
     clearInterval(timer);
     timeLeft = 90;
     isWithinTimeLimit = true;
     updateTimerDisplay();
     
-    if (isTimerEnabled) {
-        timer = setInterval(() => {
-            timeLeft--;
-            updateTimerDisplay();
-            if (timeLeft <= 0) {
-                clearInterval(timer);
-                isWithinTimeLimit = false;
-            }
-        }, 1000);
-    }
+    timer = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        if (timeLeft <= 0) {
+            stopTimer();
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    isTimerRunning = false;
+    isTimerEnabled = false;
+    clearInterval(timer);
+    document.getElementById('timer-button').textContent = 'Start Timer';
+    document.getElementById('timer-button').classList.remove('active');
+    updateTimerDisplay();
+}
+
+function resetTimer() {
+    stopTimer();
+    timeLeft = 90;
+    isWithinTimeLimit = true;
+    updateTimerDisplay();
 }
 
 function updateTimerDisplay() {
     const timerContainer = document.getElementById('timer-container');
     const timerValue = document.getElementById('timer-value');
     const completeText = document.getElementById('complete-text');
-    const timerNote = document.getElementById('timer-note');
 
-    if (isTimerEnabled) {
-        if (timeLeft > 0) {
-            timerValue.textContent = timeLeft;
-            timerContainer.style.display = 'inline';
-            completeText.textContent = '3 points';
-            timerNote.textContent = '';
-        } else {
-            timerContainer.style.display = 'none';
-            completeText.textContent = '2 points';
-        }
+    if (isTimerRunning) {
+        timerContainer.style.display = 'inline';
+        timerValue.textContent = timeLeft;
+        completeText.textContent = '3 points';
     } else {
         timerContainer.style.display = 'none';
         completeText.textContent = '2 points';
@@ -348,7 +397,7 @@ function resetToPlayerSetup() {
     currentPlayerIndex = 0;
     currentCard = null;
     clearInterval(timer);
-    selectedCategory = 'all'; // Reset the selected category
+    selectedCategory = 'Icebreaker'; // Reset the selected category
     
     // Clear player inputs
     const playerInputs = document.getElementById('player-inputs');
@@ -363,8 +412,11 @@ function resetToPlayerSetup() {
         </div>
     `;
     
-    // Reset the category select
-    document.getElementById('category-select').value = 'all';
+    // Reset the category slider
+    document.getElementById('category-slider').value = '1';
+    document.getElementById('category-value').textContent = 'Icebreaker';
+    
+    document.getElementById('score-limit').value = '10';
 }
 
 function toggleHeadToHeadMode() {
@@ -400,32 +452,41 @@ function handleLogoClick() {
     }
 }
 
-function toggleTimer() {
-    isTimerEnabled = document.getElementById('enable-timer').checked;
-    if (!isTimerEnabled) {
-        clearInterval(timer);
-        document.getElementById('timer-container').style.display = 'none';
-        document.getElementById('complete-text').textContent = '2 points';
-    } else {
-        resetTimer();
-    }
-}
-
 // Add this new function to handle flipping the view
 function flipView() {
     document.body.style.transition = 'transform 0.5s ease-in-out';
     document.body.style.transform = document.body.style.transform === 'rotate(180deg)' ? 'rotate(0deg)' : 'rotate(180deg)';
 }
 
-document.getElementById('add-player').addEventListener('click', addPlayer);
-document.getElementById('start-game').addEventListener('click', startGame);
-document.getElementById('draw-card').addEventListener('click', drawCard);
-document.getElementById('main-card').addEventListener('click', handleCardClick);
-document.getElementById('flipped-card').addEventListener('click', handleCardClick);
-document.getElementById('reset-game').addEventListener('click', resetGame);
-document.getElementById('game-logo').addEventListener('click', handleLogoClick);
-document.getElementById('head-to-head').addEventListener('change', toggleHeadToHeadMode);
-document.getElementById('recall-questions').addEventListener('change', toggleRecallQuestions);
-document.getElementById('enable-timer').addEventListener('change', toggleTimer);
+function checkGameEnd() {
+    const winner = players.find(player => player.score >= scoreLimit);
+    if (winner) {
+        alert(`${winner.name} wins the game!`);
+        resetToPlayerSetup();
+        return true;
+    }
+    return false;
+}
 
-// Initial setup is now handled by the startGame function
+// Make sure these event listeners are at the end of the file
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('add-player').addEventListener('click', addPlayer);
+    document.getElementById('start-game').addEventListener('click', startGame);
+    document.getElementById('draw-card').addEventListener('click', drawCard);
+    document.getElementById('main-card').addEventListener('click', handleCardClick);
+    document.getElementById('flipped-card').addEventListener('click', handleCardClick);
+    document.getElementById('reset-game').addEventListener('click', resetGame);
+    document.getElementById('game-logo').addEventListener('click', handleLogoClick);
+    document.getElementById('head-to-head').addEventListener('change', toggleHeadToHeadMode);
+    document.getElementById('recall-questions').addEventListener('change', toggleRecallQuestions);
+    document.getElementById('timer-button').addEventListener('click', toggleTimer);
+
+    const categorySlider = document.getElementById('category-slider');
+    const categoryValue = document.getElementById('category-value');
+    const categories = ['Icebreaker', 'First Date', 'Dating', 'Married', 'Spicy'];
+    
+    categorySlider.addEventListener('input', function() {
+        const index = parseInt(this.value) - 1;
+        categoryValue.textContent = categories[index];
+    });
+});

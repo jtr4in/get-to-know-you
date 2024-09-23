@@ -13,6 +13,12 @@
         <div id="player-setup">
             <!-- Add the player-select-logo here -->
             <img id="player-select-logo" src="logo.png" alt="In Sync" class="clickable">
+            <!-- Moved score-limit-container here, above the player inputs -->
+            <div id="score-limit-container">
+                <label for="score-limit">Score Limit:</label>
+                <input type="number" id="score-limit" min="1" value="10">
+            </div>
+            <br>
             <div id="player-inputs">
                 <div class="player-input-group">
                     <input type="text" class="player-name" placeholder="Player 1 Name">
@@ -23,15 +29,22 @@
                     <input type="color" class="player-color" value="#a4ffaf">
                 </div>
             </div>
-            <button id="add-player">+</button>
-            <!-- Add category select here -->
-            <select id="category-select">
-                <option value="all">All Categories</option>
-                <option value="fun-and-light">Fun & Light</option>
-                <option value="relationships">Relationships</option>
-                <option value="first-date">First Date</option>
-            </select>
+           <br>
+            <div class="setup-option">
+                <span id="category-value">Icebreakers</span>
+                <input type="range" id="category-slider" min="1" max="5" value="1" step="1">
+            </div>
+            <br>
+            <div id="recall-toggle">
+                <label for="recall-questions">Were you listening?</label>
+                <input type="checkbox" id="recall-questions"  checked>
+            </div>
+            <button id="add-player" aria-label="Add Player">+</button>
+            <!-- Category select remains below the add player button -->
+           
+            
             <button id="start-game">Start Game</button>
+            <!-- Move the recall toggle here, below the start game button -->
         </div>
         <div id="game-area" class="hidden">
             <div id="game-header">
@@ -69,14 +82,7 @@
             <div id="game-controls">
                 <button id="draw-card">Draw</button>
                 <!-- Remove the category select from here -->
-                <div id="recall-toggle">
-                    <label for="recall-questions">Recall?</label>
-                    <input type="checkbox" id="recall-questions" checked>
-                </div>
-                <div id="timer-toggle">
-                    <label for="enable-timer">Timer?</label>
-                    <input type="checkbox" id="enable-timer" checked>
-                </div>
+                <button id="timer-button">Start Timer</button>
             </div>
         </div>
     </div>

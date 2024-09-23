@@ -43,19 +43,19 @@ h1 {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
     cursor: pointer;
-    background-color: #FF69B4; /* HotPink */
-    color: white;
+    background-color: #ffffff; /* HotPink */
+    color: #FF1493;
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 #player-setup button:hover, #multiplayer-setup button:hover {
-    background-color: #FF1493; /* DeepPink */
+    background-color: #ffd6ec; /* DeepPink */
 }
 
 #add-player {
-    background-color: #DB7093 !important; /* PaleVioletRed */
+    background-color: #ffffff !important; /* PaleVioletRed */
     width: 40px;
     height: 40px;
     padding: 0 !important;
@@ -64,7 +64,7 @@ h1 {
 }
 
 #add-player:hover {
-    background-color: #C71585 !important; /* MediumVioletRed */
+    background-color: #ffd6ec !important; /* MediumVioletRed */
 }
 
 .player-name {
