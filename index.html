@@ -24,6 +24,13 @@
                 </div>
             </div>
             <button id="add-player">+</button>
+            <!-- Add category select here -->
+            <select id="category-select">
+                <option value="all">All Categories</option>
+                <option value="fun-and-light">Fun & Light</option>
+                <option value="relationships">Relationships</option>
+                <option value="first-date">First Date</option>
+            </select>
             <button id="start-game">Start Game</button>
         </div>
         <div id="game-area" class="hidden">
@@ -36,7 +43,7 @@
                         <input type="checkbox" id="head-to-head">
                         <span class="slider round"></span>
                     </label>
-                    <span>Fllip Mode</span>
+                    <span>Flip Mode</span>
                 </div>
             </div>
             <div id="scores">
@@ -61,15 +68,14 @@
             </div>
             <div id="game-controls">
                 <button id="draw-card">Draw</button>
-                <select id="category-select">
-                    <option value="all">All Categories</option>
-                    <option value="fun-and-light">Fun & Light</option>
-                    <option value="relationships">Relationships</option>
-                    <option value="deep-thoughts">Deep Thoughts</option>
-                </select>
+                <!-- Remove the category select from here -->
                 <div id="recall-toggle">
                     <label for="recall-questions">Recall?</label>
                     <input type="checkbox" id="recall-questions" checked>
+                </div>
+                <div id="timer-toggle">
+                    <label for="enable-timer">Timer?</label>
+                    <input type="checkbox" id="enable-timer" checked>
                 </div>
             </div>
         </div>
