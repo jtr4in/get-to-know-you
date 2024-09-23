@@ -1819,6 +1819,7 @@ body.head-to-head-mode #head-to-head-toggle {
     width: 600px;
 }
 #setup-controls {
+    position: relative; /* Ensure the container is positioned relative */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1892,6 +1893,13 @@ body.head-to-head-mode #head-to-head-toggle {
 #settings-button:hover svg {
     fill: #555555; /* Slightly lighter black on hover */
     transform: rotate(30deg); /* Optional: adds a little rotation effect on hover */
+}
+
+#category-slider {
+    width: 100% !important; /* Make the slider take the full width of its container */
+    max-width: 300px !important; /* Set a maximum width to match other elements */
+    margin: 0 auto !important; /* Center the slider */
+    display: block !important; /* Ensure it behaves as a block element */
 }
 
 @media (max-width: 768px) {
