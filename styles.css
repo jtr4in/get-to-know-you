@@ -5,7 +5,10 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #FFF0F5; /* Light pink background */
+    background-image: url('background.jpg'); /* Replace 'background.jpg' with the path to your image */
+    background-size: cover; /* This will ensure the image covers the entire background */
+    background-repeat: no-repeat; /* This will prevent the image from repeating */
+    background-position: center; /* This will center the image */
     transition: transform 0.5s ease-in-out;
 }
 
@@ -25,6 +28,7 @@ body.head-to-head-mode #head-to-head-toggle {
     box-shadow: 0 10px 20px rgba(199, 21, 133, 0.1); /* MediumVioletRed shadow */
     max-width: 90%;
     width: 600px;
+   
 }
 
 h1 {
