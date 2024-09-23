@@ -31,7 +31,7 @@ const cards = {
         { question: "What's your love language?" },
         { question: "Where do you see our relationship in 5 years?" },
     ],
-    'Married': [
+    'Longterm': [
         { question: "What are your core values, and how do they shape our marriage?" },
         { question: "How do you define success in our relationship?" },
         { question: "What's your favorite thing about being married to me?" },
@@ -45,16 +45,73 @@ const cards = {
     ]
 };
 
-
 let questionHistory = [];
 const RECALL_FREQUENCY = 5; // Ask a recall question every 5 cards
 let cardsSinceLastRecall = 0;
 
-const recallChallenges = [
-    "Answer as if you're giving a weather forecast.",
-    "Answer as if you're delivering a motivational speech.",
-    "Answer as if you're ordering at a fancy restaurant.",
-   
+const recallChallengesIcebreaker = [
+    "Answer as if you're hosting a game show.",
+    "Answer in the form of a knock-knock joke.",
+    "Answer as if you're narrating a children's story.",
+    "Answer while doing a silly dance.",
+    "Answer as if you're a famous sports commentator.",
+    "Answer while pretending to be a superhero.",
+    "Answer using only sound effects.",
+    "Answer while clapping between each word.",
+    "Answer as if you're on a news broadcast.",
+    "Answer while mimicking a robot."
+];
+
+const recallChallengesFirstDate = [
+    "Answer while maintaining a playful smile.",
+    "Answer as if you're on a reality dating show.",
+    "Answer while tracing your finger along the table.",
+    "Answer as if you're texting a crush.",
+    "Answer while giving a subtle wink.",
+    "Answer as if you're sharing a secret.",
+    "Answer while softly humming.",
+    "Answer as if you're leaving a cute voice message.",
+    "Answer while playfully mimicking the other person's voice.",
+    "Answer while giving a quick compliment."
+];
+
+const recallChallengesDating = [
+    "Answer as if you're writing in your diary.",
+    "Answer while holding eye contact for 5 seconds.",
+    "Answer as if you're reflecting on your relationship.",
+    "Answer while gently touching their hand.",
+    "Answer as if you're describing your partner to a close friend.",
+    "Answer while taking a slow, deep breath.",
+    "Answer while smiling warmly.",
+    "Answer as if you're sharing a favorite memory.",
+    "Answer while holding the other player's gaze.",
+    "Answer as if you're planning a surprise for your partner."
+];
+
+const recallChallengesLongterm = [
+    "Answer as if you're writing your wedding vows.",
+    "Answer while placing your hand on your heart.",
+    "Answer as if you're reminiscing about your first date.",
+    "Answer as if you're writing a love song.",
+    "Answer while softly holding their gaze.",
+    "Answer as if you're expressing your deepest feelings.",
+    "Answer while lightly touching the other person’s shoulder.",
+    "Answer as if you're renewing your vows.",
+    "Answer while reflecting on your future together.",
+    "Answer while recalling your happiest moment together."
+];
+
+const recallChallengesSpicy = [
+    "Answer while leaning in close.",
+    "Answer while softly brushing your partner’s hand.",
+    "Answer with a sultry tone.",
+    "Answer as if you're whispering a secret.",
+    "Answer while slowly tracing a shape with your finger.",
+    "Answer as if you're sharing a hidden fantasy.",
+    "Answer while biting your lip.",
+    "Answer as if you're describing a dream.",
+    "Answer while softly running your fingers through your hair.",
+    "Answer while giving a flirty smile."
 ];
 
 
@@ -165,7 +222,7 @@ function switchPlayer() {
 
 function getSelectedCategory() {
     const sliderValue = document.getElementById('category-slider').value;
-    const categories = ['Icebreaker', 'First Date', 'Dating', 'Married', 'Spicy'];
+    const categories = ['Icebreaker', 'First Date', 'Dating', 'Longterm', 'Spicy'];
     return categories[parseInt(sliderValue) - 1];
 }
 
@@ -190,8 +247,27 @@ function drawCard() {
             newCard = categoryCards[Math.floor(Math.random() * categoryCards.length)];
         } while (newCard === currentCard && categoryCards.length > 1);
         
-        // Randomly select a challenge from recallChallenges
-        const randomChallenge = recallChallenges[Math.floor(Math.random() * recallChallenges.length)];
+        // Select a challenge based on the selected category
+        let randomChallenge;
+        switch (selectedCategory) {
+            case 'Icebreaker':
+                randomChallenge = recallChallengesIcebreaker[Math.floor(Math.random() * recallChallengesIcebreaker.length)];
+                break;
+            case 'First Date':
+                randomChallenge = recallChallengesFirstDate[Math.floor(Math.random() * recallChallengesFirstDate.length)];
+                break;
+            case 'Dating':
+                randomChallenge = recallChallengesDating[Math.floor(Math.random() * recallChallengesDating.length)];
+                break;
+            case 'Longterm':
+                randomChallenge = recallChallengesLongterm[Math.floor(Math.random() * recallChallengesLongterm.length)];
+                break;
+            case 'Spicy':
+                randomChallenge = recallChallengesSpicy[Math.floor(Math.random() * recallChallengesSpicy.length)];
+                break;
+            default:
+                randomChallenge = "";
+        }
         
         currentCard = {
             question: newCard.question,
@@ -427,11 +503,32 @@ function toggleHeadToHeadMode() {
 function generateRecallQuestion() {
     const recalledQuestion = questionHistory[Math.floor(Math.random() * questionHistory.length)];
     const recallPlayer = players.find(player => player.name !== recalledQuestion.player);
-    const challenge = recallChallenges[Math.floor(Math.random() * recallChallenges.length)];
+    
+    // Select a challenge based on the selected category
+    let randomChallenge;
+    switch (selectedCategory) {
+        case 'Icebreaker':
+            randomChallenge = recallChallengesIcebreaker[Math.floor(Math.random() * recallChallengesIcebreaker.length)];
+            break;
+        case 'First Date':
+            randomChallenge = recallChallengesFirstDate[Math.floor(Math.random() * recallChallengesFirstDate.length)];
+            break;
+        case 'Dating':
+            randomChallenge = recallChallengesDating[Math.floor(Math.random() * recallChallengesDating.length)];
+            break;
+        case 'Longterm':
+            randomChallenge = recallChallengesLongterm[Math.floor(Math.random() * recallChallengesLongterm.length)];
+            break;
+        case 'Spicy':
+            randomChallenge = recallChallengesSpicy[Math.floor(Math.random() * recallChallengesSpicy.length)];
+            break;
+        default:
+            randomChallenge = "";
+    }
     
     currentCard = {
         question: `${recalledQuestion.player}'s answer to: "${recalledQuestion.question}"`,
-        challenge: challenge.replace('{player}', recalledQuestion.player),
+        challenge: randomChallenge.replace('{player}', recalledQuestion.player),
         isRecall: true
     };
     
@@ -468,6 +565,32 @@ function checkGameEnd() {
     return false;
 }
 
+// Get the modal
+var modal = document.getElementById("settings-modal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("settings-button");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.classList.add("show");
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.classList.remove("show");
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.classList.remove("show");
+    }
+}
+
 // Make sure these event listeners are at the end of the file
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('add-player').addEventListener('click', addPlayer);
@@ -483,10 +606,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const categorySlider = document.getElementById('category-slider');
     const categoryValue = document.getElementById('category-value');
-    const categories = ['Icebreaker', 'First Date', 'Dating', 'Married', 'Spicy'];
+    const categories = {
+        1: { name: 'Icebreaker', color: '#1b2ae3' }, // Blue
+        2: { name: 'First Date', color: '#551fab' }, // Intermediate between blue and cyan
+        3: { name: 'Dating', color: '#86167b' }, // Cyan
+        4: { name: 'Longterm', color: '#af0e53' }, // Green
+        5: { name: 'Spicy', color: '#ff0000' } // Red
+    };
     
-    categorySlider.addEventListener('input', function() {
-        const index = parseInt(this.value) - 1;
-        categoryValue.textContent = categories[index];
-    });
+    function updateCategory() {
+        const category = categories[categorySlider.value];
+        categoryValue.textContent = category.name;
+        categoryValue.style.color = category.color;
+        selectedCategory = category.name; // Update the selectedCategory variable
+    }
+    
+    categorySlider.addEventListener('input', updateCategory);
+    
+    // Initialize the category display
+    updateCategory();
 });
