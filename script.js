@@ -62,7 +62,7 @@ const recallChallengesIcebreaker = [
     "Answer while mimicking a robot.",
     "Answer as if you're teaching a kindergarten class.",
     "Answer while tapping your fingers on the table.",
-    "Answer like you're in a rap battle.",
+    "Answer like you're planning a surprise party.",
     "Answer while pretending to juggle.",
     "Answer as if you're telling a joke to make someone laugh.",
     "Answer as if you're giving a tourist guide tour.",
@@ -170,7 +170,7 @@ const recallChallengesLongterm = [
     "Answer as if you're writing a love song.",
     "Answer while softly holding their gaze.",
     "Answer as if you're expressing your deepest feelings.",
-    "Answer while lightly touching the other person’s shoulder.",
+    "Answer while lightly touching the other person's shoulder.",
     "Answer as if you're renewing your vows.",
     "Answer while reflecting on your future together.",
     "Answer while reflecting on a major milestone you've shared.",
@@ -200,15 +200,15 @@ const recallChallengesLongterm = [
 
 const recallChallengesSpicy = [
     "Answer while gently holding each other's gaze for 10 seconds before speaking.",
-    "Answer while tracing your partner’s hand with your fingertips.",
-    "Answer while softly caressing your partner’s face with both hands.",
-    "Answer while placing your hand over your partner’s heart and feeling their heartbeat.",
+    "Answer while tracing your partner's hand with your fingertips.",
+    "Answer while softly caressing your partner's face with both hands.",
+    "Answer while placing your hand over your partner's heart and feeling their heartbeat.",
     "Answer while giving each other a slow, meaningful hug before speaking.",
     "Answer while holding hands and interlocking fingers.",
     "Answer while whispering your response, leaning in close to their ear.",
-    "Answer while gently kissing your partner’s forehead before you speak.",
+    "Answer while gently kissing your partner's forehead before you speak.",
     "Answer while placing a soft kiss on their lips after each sentence.",
-    "Answer while gently caressing your partner’s neck with your fingertips.",
+    "Answer while gently caressing your partner's neck with your fingertips.",
     "Answer while running your hand slowly down their back.",
     "Answer while placing your forehead gently against theirs.",
     "Answer while softly brushing your lips against their cheek.",
@@ -223,7 +223,7 @@ const recallChallengesSpicy = [
     "Answer while gently brushing your fingers through their hair.",
     "Answer while holding each other tightly, focusing on the warmth between you.",
     "Answer while caressing their face slowly, looking deeply into their eyes.",
-    "Answer while taking turns kissing each other’s hands and wrists."
+    "Answer while taking turns kissing each other's hands and wrists."
 ];
 
 
@@ -721,21 +721,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const categoryValue = document.getElementById('category-value');
     const categories = {
         1: { name: 'Icebreaker', color: '#1b2ae3' }, // Blue
-        2: { name: 'First Date', color: '#551fab' }, // Intermediate between blue and cyan
-        3: { name: 'Dating', color: '#86167b' }, // Cyan
-        4: { name: 'Longterm', color: '#af0e53' }, // Green
-        5: { name: 'Spicy', color: '#ff0000' } // Red
+        2: { name: 'First Date', color: '#551fab' }, // Purple
+        3: { name: 'Dating', color: '#86167b' }, // Maroon
+        4: { name: 'Longterm', color: '#af0e53' }, // Red
+        5: { name: 'Spicy', color: '#ff0000' } // Bright Red
     };
     
-    function updateCategory() {
-        const category = categories[categorySlider.value];
-        categoryValue.textContent = category.name;
-        categoryValue.style.color = category.color;
-        selectedCategory = category.name; // Update the selectedCategory variable
+    function updateSliderBackground(value) {
+        const percentage = ((value - 1) / 4) * 100;
+        const category = categories[Math.round(value)];
+        categorySlider.style.background = `linear-gradient(to right, ${category.color} ${percentage}%, #ddd ${percentage}%)`;
     }
     
-    categorySlider.addEventListener('input', updateCategory);
+    categorySlider.addEventListener('input', (event) => {
+        const value = parseFloat(event.target.value);
+        const category = categories[Math.round(value)];
+        categoryValue.textContent = category.name;
+        updateSliderBackground(value);
+    });
     
-    // Initialize the category display
-    updateCategory();
+    // Initialize the slider with the starting category
+    const initialCategory = categories[Math.round(categorySlider.value)];
+    categoryValue.textContent = initialCategory.name;
+    updateSliderBackground(parseFloat(categorySlider.value));
 });
