@@ -377,7 +377,7 @@ const cards = {
     { question: "What's your favorite way to show affection?" },
     { question: "Do you enjoy slow dances or holding hands more?" },
     { question: "How do you feel about trying out romantic games?" },
-    
+   ] 
 };
 
 let questionHistory = [];
