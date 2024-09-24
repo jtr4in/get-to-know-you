@@ -79,7 +79,7 @@ h1 {
 
 #player-setup button, #multiplayer-setup button {
     margin: 0.5rem;
-    padding: 0.8rem 1.5rem;
+    padding: 0.0rem 1.5rem;
     font-size: 1rem;
     cursor: pointer;
     background-color: #ffffff; /* HotPink */
@@ -90,12 +90,12 @@ h1 {
 }
 
 #player-setup button:hover, #multiplayer-setup button:hover {
-    background-color: #ffd6ec; /* DeepPink */
+    background-color: #ffffff; /* DeepPink */
 }
 
 #add-player {
     background-color: #ffffff !important; /* PaleVioletRed */
-    width: 40px;
+    width: 10px;
     height: 40px;
     padding: 0 !important;
     font-size: 1.5rem !important;
@@ -1874,7 +1874,7 @@ body.head-to-head-mode #head-to-head-toggle {
     background-color: #FF1493 !important; /* DeepPink */
 }
 #add-player, #start-game, #settings-button {
-    padding: 8px 16px;
+
     font-size: 1rem;
     background-color: #ffffff;
     color: #FF1493;

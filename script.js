@@ -152,13 +152,12 @@ const recallChallengesDating = [
     "Answer like you're telling your family about the person you love.",
     "Answer as if you're giving a toast at a romantic dinner.",
     "Answer while daydreaming about your future together.",
-    "Answer while brushing a strand of hair behind your ear (or pretend to).",
-    "Answer as if you're planning a cozy night in together.",
-    "Answer while touching their hand gently.",
-    "Answer while mimicking the sound of laughter you share.",
-    "Answer while softly whispering part of your response.",
-    "Answer as if you're gazing at the stars together.",
-    "Answer as if you're planning a surprise for your partner."
+    "Answer while thinking about what makes them unique.",
+    "Answer while holding back a happy tear.",
+    "Answer as if you're making a promise for the future.",
+    "Answer as if you're writing them a love letter for the next decade.",
+    "Answer while reflecting on your favorite date with them.",
+    "Answer while softly recalling a shared inside joke."
 ];
 
 
@@ -550,11 +549,7 @@ function updateTimerDisplay() {
 }
 
 function resetGame() {
-    players.forEach(player => player.score = 0);
-    currentPlayerIndex = 0;
-    updateScores();
-    updateCurrentPlayer();
-    drawCard();
+    location.reload();
 }
 
 function updateCurrentPlayer() {
