@@ -339,7 +339,6 @@ const cards = {
         { question: "What is the most memorable trip we've taken together?" },
         { question: "What was the first thing you noticed about me?" },
         { question: "What do you remember about our first kiss?" },
-       
         { question: "What's the most memorable sexual experience we've had?" },
         { question: "What's one thing you've always wanted to do in bed but haven't?" },
         { question: "Do you have any secret kinks or fetishes?" },
