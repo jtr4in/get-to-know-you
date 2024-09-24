@@ -28,7 +28,8 @@ body.head-to-head-mode #head-to-head-toggle {
     box-shadow: 0 10px 20px rgba(199, 21, 133, 0.1); /* MediumVioletRed shadow */
     max-width: 90%;
     width: 600px;
-   
+    max-height: 90vh; /* Limit height to 90% of viewport height */
+    overflow-y: auto; /* Allow scrolling within the container if needed */
 }
 
 h1 {
