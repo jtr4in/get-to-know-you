@@ -46,7 +46,7 @@ const cards = {
 };
 
 let questionHistory = [];
-const RECALL_FREQUENCY = 5; // Ask a recall question every 5 cards
+const RECALL_FREQUENCY = 10; // Ask a recall question every 5 cards
 let cardsSinceLastRecall = 0;
 
 const recallChallengesIcebreaker = [
@@ -640,7 +640,7 @@ function generateRecallQuestion() {
     }
     
     currentCard = {
-        question: `${recalledQuestion.player}'s answer to: "${recalledQuestion.question}"`,
+        question: `What was ${recalledQuestion.player}'s answer to: "${recalledQuestion.question}"`,
         challenge: randomChallenge.replace('{player}', recalledQuestion.player),
         isRecall: true
     };
