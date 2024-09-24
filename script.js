@@ -186,7 +186,7 @@ const recallChallengesLongterm = [
     "Answer while gently holding their hand.",
     "Answer while softly complimenting their best quality.",
     "Answer while gently reminiscing about your shared dreams.",
-    "Answer as if you're telling your family about the person you love.",
+    "Answer like you're telling your family about the person you love.",
     "Answer as if you're giving a toast at a romantic dinner.",
     "Answer while daydreaming about your future together.",
     "Answer while thinking about what makes them unique.",
@@ -773,6 +773,32 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target == termsModal || event.target == privacyModal) {
             termsModal.classList.remove('show');
             privacyModal.classList.remove('show');
+        }
+    }
+
+    // Get the settings modal
+    var settingsModal = document.getElementById("settings-modal");
+
+    // Get the button that opens the settings modal
+    var settingsBtn = document.getElementById("settings-button");
+
+    // Get the <span> element that closes the settings modal
+    var settingsCloseBtn = settingsModal.querySelector(".close");
+
+    // When the user clicks the settings button, open the modal 
+    settingsBtn.onclick = function() {
+        settingsModal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the settings modal
+    settingsCloseBtn.onclick = function() {
+        settingsModal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == settingsModal) {
+            settingsModal.style.display = "none";
         }
     }
 });

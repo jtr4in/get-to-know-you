@@ -773,6 +773,8 @@ input:checked + .slider:before {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
@@ -780,9 +782,14 @@ input:checked + .slider:before {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 400px; /* Limit the maximum width */
-    border-radius: 15px; /* Rounder edges */
+    max-width: 400px;
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: modalopen 0.3s;
 }
 .modal.show {
     display: flex;
@@ -801,14 +808,7 @@ input:checked + .slider:before {
 .close:focus {
     color: #000;
     text-decoration: none;
-}
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .modal-content {
-        width: 90%;
-        margin: 10% auto; /* Add some top margin on mobile */
-    }
 }
 .card {
     width: 300px;
