@@ -170,7 +170,7 @@ const recallChallengesLongterm = [
     "Answer as if you're writing a love song.",
     "Answer while softly holding their gaze.",
     "Answer as if you're expressing your deepest feelings.",
-    "Answer while lightly touching the other person's shoulder.",
+    "Answer while lightly touching their shoulder.",
     "Answer as if you're renewing your vows.",
     "Answer while reflecting on your future together.",
     "Answer while reflecting on a major milestone you've shared.",
@@ -186,9 +186,9 @@ const recallChallengesLongterm = [
     "Answer while gently holding their hand.",
     "Answer while softly complimenting their best quality.",
     "Answer while gently reminiscing about your shared dreams.",
-    "Answer as if you're talking about how much you've grown together.",
-    "Answer while sharing something you've learned from them.",
-    "Answer while reflecting on your future together.",
+    "Answer as if you're telling your family about the person you love.",
+    "Answer as if you're giving a toast at a romantic dinner.",
+    "Answer while daydreaming about your future together.",
     "Answer while thinking about what makes them unique.",
     "Answer while holding back a happy tear.",
     "Answer as if you're making a promise for the future.",
@@ -744,4 +744,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const initialCategory = categories[Math.round(categorySlider.value)];
     categoryValue.textContent = initialCategory.name;
     updateSliderBackground(parseFloat(categorySlider.value));
+
+    // Add these new event listeners
+    const termsLink = document.getElementById('terms-link');
+    const privacyLink = document.getElementById('privacy-link');
+    const termsModal = document.getElementById('terms-modal');
+    const privacyModal = document.getElementById('privacy-modal');
+    const closeBtns = document.getElementsByClassName('close');
+
+    termsLink.onclick = function(e) {
+        e.preventDefault();
+        termsModal.classList.add('show');
+    }
+
+    privacyLink.onclick = function(e) {
+        e.preventDefault();
+        privacyModal.classList.add('show');
+    }
+
+    for (let closeBtn of closeBtns) {
+        closeBtn.onclick = function() {
+            termsModal.classList.remove('show');
+            privacyModal.classList.remove('show');
+        }
+    }
+
+    window.onclick = function(event) {
+        if (event.target == termsModal || event.target == privacyModal) {
+            termsModal.classList.remove('show');
+            privacyModal.classList.remove('show');
+        }
+    }
 });
