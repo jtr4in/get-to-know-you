@@ -5,6 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>in sync - get to know you game</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        #skip-turn {
+            background-color: #808080; /* Grey background */
+            color: white; /* White text */
+            border: none; /* Remove default border */
+            padding: 10px 20px; /* Add some padding */
+            text-align: center; /* Center the text */
+            text-decoration: none; /* Remove underline */
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer; /* Change cursor to pointer on hover */
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        #skip-turn:hover {
+            background-color: #666666; /* Darker grey on hover */
+        }
+
+        #skip-turn:active {
+            background-color: #4d4d4d; /* Even darker when pressed */
+        }
+        
+        #flipped-card {
+            border: none; /* Remove any existing border */
+        }
+
+        #flipped-card.recall-question {
+            background-color: #808080;
+            color: white;
+            border: none; /* Explicitly remove border for recall questions */
+            box-shadow: none; /* Remove any existing box-shadow */
+        }
+        
+        #flipped-card.recall-question #challenge {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        #flipped-card.recall-question #complete-text {
+            color: #db00db;
+        }
+
+        /* Remove any glow effect for recall questions */
+        .recall-question {
+            animation: none;
+            box-shadow: none;
+        }
+
+        /* ... existing styles ... */
+
+        #category-slider, #game-category-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            max-width: 300px;
+            height: 8px;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            border-radius: 4px;
+            background: linear-gradient(to right, #1b2ae3, #551fab, #86167b, #af0e53, #ff0000);
+        }
+
+        #category-slider:hover, #game-category-slider:hover {
+            opacity: 1;
+        }
+
+        #category-slider::-webkit-slider-thumb, #game-category-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #FF1493;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+
+        #category-slider::-moz-range-thumb, #game-category-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #FF1493;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+
+        #game-category-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        #game-category-value {
+            margin-bottom: 5px;
+        }
+     
+    </style>
    
 </head>
 <body>
@@ -32,7 +132,7 @@
             
             <h1><span id="category-value">Icebreakers</span> Questions</h1>
             
-            <input type="range" id="category-slider" min="1" max="5" value="1" step="0.1" style="width: 100%; max-width: 300px; margin: 0 auto; display: block; -webkit-appearance: none; appearance: none; height: 8px; background: #ddd; outline: none; opacity: 0.7; transition: opacity 0.2s;">
+            <input type="range" id="category-slider" min="1" max="5" value="1" step="0.01">
             <style>
                 #category-slider:hover {
                     opacity: 1;
@@ -62,12 +162,13 @@
                 <button id="start-game" style="background-color: #FF69B4; color: white; border: none; padding: 10px 20px; cursor: pointer; transition: background-color 0.3s ease;">Start Game</button>
                               <button id="settings-button" aria-label="Settings">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="grey" width="24" height="24">
-        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 
+        h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
     </svg>
 </button>
            </div>
 
-            <footer id="game-footer">
+          <span hidden> <footer id="game-footer">
                 <div class="footer-content">
                    
                     <div class="footer-links">
@@ -79,38 +180,12 @@
                     <p class="copyright">© 2024 In Sync Game. All rights reserved.</p>
                 </div>
             </footer>
-        </div>
+        </div></span> 
         
         <div id="game-area" class="hidden">
             <div id="game-header">
-                <button id="reset-game">Reset</button>
-                <img id="game-logo" src="logo.png"">
+                <img id="game-logo" src="logo.png" alt="In Sync">
                 
-            </div>
-            <div id="scores">
-                <div id="player1-score">Player 1: <span>0</span></div>
-                <div id="player2-score">Player 2: <span>0</span></div>
-            </div>
-            <div id="cards-container">
-                <div id="main-card" class="card clickable">
-                    <div id="question"></div>
-                    <div class="card-footer">1 point</div>
-                </div>
-                <div id="flipped-card" class="card clickable">
-                    <div id="challenge"></div>
-                    <div class="card-footer">
-                        <span id="complete-text">3 points</span>
-                        <span id="timer-container">
-                            (<span id="timer-value">90</span><span id="timer-unit">s)</span>
-                            <span id="timer-note"></span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div id="game-controls">
-                <button id="draw-card">Draw</button>
-                
-                <br>
                 <div class="toggle-container hidden">
                     <label class="switch">
                         <input type="checkbox" id="head-to-head">
@@ -118,15 +193,35 @@
                     </label>
                     <span>Flip Mode</span>
                 </div>
-                <button id="timer-button">90s Timer</button>
+                <!-- Add this line -->
+                
+                <button id="reset-game">Reset</button>
             </div>
-            
+            <div id="scores">
+                <div id="player1-score">Player 1: <span>0</span></div>
+                <div id="player2-score">Player 2: <span>0</span></div>
+            </div>
+            <div id="cards-container">
+                <div id="main-card" class="card" style="width: 200px; height: 250px; background-color: #e9497e; color: white; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <div id="question" style="font-size: 21px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center;">What was Player 1's answer to: "Do you have any hidden talents?"</div>
+                    <div style="text-align: center; background-color: rgba(255,255,255,0.2); padding: 5px; border-radius: 10px; font-size: 14px;">1 point</div>
+                </div>
+                <div id="flipped-card" class="card" style="width: 200px; height: 250px; background-color: #4B0082; color: white; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <div id="challenge" style="font-size: 21px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center;">Uh...</div>
+                    <div id="complete-text" style="text-align: center; background-color: rgba(255,255,255,0.2); padding: 5px; border-radius: 10px; font-size: 14px;">-2 points</div>
+                </div>
+            </div>
+            <div id="game-controls">
+                <button id="draw-card">Draw</button>
+                
+                
+                <button id="skip-turn">Skip (-1)</button>
+            </div>
+            <div id="game-category-container"></div>
+            <br>
+                
         </div>
-        <div id="wager-setup" class="hidden" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 400px; background-color: #FFFFFF; border-radius: 20px; padding: 2rem; box-shadow: 0 10px 20px rgba(199, 21, 133, 0.1); text-align: center;">
-            <h2 style="color: #C71585; margin-bottom: 1rem;">Enter your wager</h2>
-            <input type="text" id="wager-input" placeholder="Enter your wager" style="width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
-            <button id="confirm-wager" style="padding: 0.8rem 1.5rem; font-size: 1rem; cursor: pointer; background-color: #FF69B4; color: white; border: none; border-radius: 5px; transition: background-color 0.3s ease;">Confirm Wager</button>
-        </div>
+        
     </div>
 
     <!-- Settings Modal -->
@@ -170,7 +265,18 @@
         </div>
     </div>
 
+    <div id="winner-modal" class="modal">
+        <div class="modal-content">
+            <h2>Congratulations!</h2>
+            <p id="winner-message"></p>
+            <button id="new-game-button">New Game</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <audio id="winning-sound" src="path/to/your/winning-sound.mp3"></audio>
 
 </body>
 </html>

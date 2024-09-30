@@ -245,12 +245,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #DB7093; /* PaleVioletRed */
-    border-bottom-width: 6px;
-    background-color: #DB7093; /* PaleVioletRed */
-    box-shadow: 0 6px 12px rgba(219, 112, 147, 0.2);
-}
+
 
 #flipped-card {
     border: 3px solid #FF69B4; /* HotPink */
@@ -260,19 +255,7 @@ h1 {
 }
 
 /* Add this new style for recall question cards */
-#main-card.recall-question {
-    border: 3px solid #9C27B0; /* Purple */
-    border-bottom-width: 6px;
-    background-color: #9C27B0; /* Purple */
-    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
-}
 
-#flipped-card.recall-question {
-    border: 3px solid #E91E63; /* Pink */
-    border-bottom-width: 6px;
-    background-color: #E91E63; /* Pink */
-    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -286,20 +269,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -603,12 +573,7 @@ button:hover {
     padding: 6px 12px; /* Reduce padding for smaller screens */
 }
 
-.toggle-container {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    font-size: 0.7rem; /* Reduce font size for smaller screens */
-}
+
 
 .switch {
     position: relative;
@@ -778,19 +743,43 @@ input:checked + .slider:before {
     align-items: center;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
 .modal-content {
     background-color: #fefefe;
+    margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 400px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: modalopen 0.3s;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+#new-game-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+#new-game-button:hover {
+    background-color: #45a049;
 }
 .modal.show {
     display: flex;
@@ -816,10 +805,10 @@ input:checked + .slider:before {
     height: 200px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     font-size: 1.5rem;
     padding: 1.5rem;
@@ -835,34 +824,7 @@ input:checked + .slider:before {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #DB7093; /* PaleVioletRed */
-    border-bottom-width: 6px;
-    background-color: #DB7093; /* PaleVioletRed */
-    box-shadow: 0 6px 12px rgba(219, 112, 147, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
-
-/* Add this new style for recall question cards */
-#main-card.recall-question {
-    border: 3px solid #9C27B0; /* Purple */
-    border-bottom-width: 6px;
-    background-color: #9C27B0; /* Purple */
-    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
-}
-
-#flipped-card.recall-question {
-    border: 3px solid #E91E63; /* Pink */
-    border-bottom-width: 6px;
-    background-color: #E91E63; /* Pink */
-    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -874,22 +836,32 @@ input:checked + .slider:before {
     left: 0;
     font-size: 0.9rem;
     background-color: rgba(255, 255, 255, 0.2);
-}
-
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
 }
+
+.points-text {
+    font-size: 1rem;
+    color: white;
+}
+
+#question, #challenge {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    font-size: 1.1rem;
+    line-height: 1.3;
+}
+
+
+
 
 #timer-container {
     display: inline;
@@ -1233,7 +1205,10 @@ button:hover {
 #scores > div:hover {
     transform: translateY(-2px);
 }
-
+#toggle-container > div > span {
+    color: inherit;
+    text-shadow: none;
+}
 #scores > div > span {
     color: inherit;
     text-shadow: none;
@@ -1335,34 +1310,10 @@ button:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #DB7093; /* PaleVioletRed */
-    border-bottom-width: 6px;
-    background-color: #DB7093; /* PaleVioletRed */
-    box-shadow: 0 6px 12px rgba(219, 112, 147, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 /* Add this new style for recall question cards */
-#main-card.recall-question {
-    border: 3px solid #9C27B0; /* Purple */
-    border-bottom-width: 6px;
-    background-color: #9C27B0; /* Purple */
-    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
-}
 
-#flipped-card.recall-question {
-    border: 3px solid #E91E63; /* Pink */
-    border-bottom-width: 6px;
-    background-color: #E91E63; /* Pink */
-    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -1376,20 +1327,7 @@ button:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -2141,61 +2079,8 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #DB7093; /* PaleVioletRed */
-    border-bottom-width: 6px;
-    background-color: #DB7093; /* PaleVioletRed */
-    box-shadow: 0 6px 12px rgba(219, 112, 147, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
-/* Add this new style for recall question cards */
-#main-card.recall-question {
-    border: 3px solid #9C27B0; /* Purple */
-    border-bottom-width: 6px;
-    background-color: #9C27B0; /* Purple */
-    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
-}
-
-#flipped-card.recall-question {
-    border: 3px solid #E91E63; /* Pink */
-    border-bottom-width: 6px;
-    background-color: #E91E63; /* Pink */
-    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.2);
-}
-
-.card-footer {
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    font-size: 0.9rem;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -2839,34 +2724,9 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #DB7093; /* PaleVioletRed */
-    border-bottom-width: 6px;
-    background-color: #DB7093; /* PaleVioletRed */
-    box-shadow: 0 6px 12px rgba(219, 112, 147, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 /* Add this new style for recall question cards */
-#main-card.recall-question {
-    border: 3px solid #9C27B0; /* Purple */
-    border-bottom-width: 6px;
-    background-color: #9C27B0; /* Purple */
-    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
-}
 
-#flipped-card.recall-question {
-    border: 3px solid #E91E63; /* Pink */
-    border-bottom-width: 6px;
-    background-color: #E91E63; /* Pink */
-    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -2880,20 +2740,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -3542,34 +3389,9 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #DB7093; /* PaleVioletRed */
-    border-bottom-width: 6px;
-    background-color: #DB7093; /* PaleVioletRed */
-    box-shadow: 0 6px 12px rgba(219, 112, 147, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 /* Add this new style for recall question cards */
-#main-card.recall-question {
-    border: 3px solid #9C27B0; /* Purple */
-    border-bottom-width: 6px;
-    background-color: #9C27B0; /* Purple */
-    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
-}
 
-#flipped-card.recall-question {
-    border: 3px solid #E91E63; /* Pink */
-    border-bottom-width: 6px;
-    background-color: #E91E63; /* Pink */
-    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -3583,20 +3405,6 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -4008,13 +3816,14 @@ input:checked + .slider:before {
     }
 }
 
-#game-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+#game-controls #skip-turn {
+    background-color: #808080 !important; /* Grey */
+    margin: 0;
+    padding: 12px 24px;
+}
+
+#game-controls #skip-turn:hover {
+    background-color: #696969 !important; /* Dark Grey */
 }
 
 #category-select {
@@ -4246,34 +4055,10 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #DB7093; /* PaleVioletRed */
-    border-bottom-width: 6px;
-    background-color: #DB7093; /* PaleVioletRed */
-    box-shadow: 0 6px 12px rgba(219, 112, 147, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 /* Add this new style for recall question cards */
-#main-card.recall-question {
-    border: 3px solid #9C27B0; /* Purple */
-    border-bottom-width: 6px;
-    background-color: #9C27B0; /* Purple */
-    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
-}
 
-#flipped-card.recall-question {
-    border: 3px solid #E91E63; /* Pink */
-    border-bottom-width: 6px;
-    background-color: #E91E63; /* Pink */
-    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -4287,20 +4072,6 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -4956,26 +4727,14 @@ h1 {
 }
 
 #flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
+    border: 3px solid #570442; /* HotPink */
     border-bottom-width: 6px;
     background-color: #FF69B4; /* HotPink */
     box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
 }
 
 /* Add this new style for recall question cards */
-#main-card.recall-question {
-    border: 3px solid #9C27B0; /* Purple */
-    border-bottom-width: 6px;
-    background-color: #9C27B0; /* Purple */
-    box-shadow: 0 6px 12px rgba(156, 39, 176, 0.2);
-}
 
-#flipped-card.recall-question {
-    border: 3px solid #E91E63; /* Pink */
-    border-bottom-width: 6px;
-    background-color: #E91E63; /* Pink */
-    box-shadow: 0 6px 12px rgba(233, 30, 99, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -4989,20 +4748,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -6300,19 +6046,6 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -6326,20 +6059,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -6816,19 +6536,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -6842,20 +6550,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -7331,19 +7026,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -7357,20 +7040,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -7852,19 +7522,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -7878,20 +7536,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -8573,19 +8218,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -8599,20 +8232,6 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -9084,19 +8703,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -9110,20 +8717,6 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -9593,19 +9186,6 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -9619,20 +9199,6 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -10101,19 +9667,6 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -10127,20 +9680,6 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #complete-text {
     margin-right: auto;
@@ -10608,19 +10147,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -10634,20 +10161,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #complete-text {
     margin-right: auto;
@@ -11251,19 +10765,6 @@ button:hover {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -11277,20 +10778,6 @@ button:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline-flex;
@@ -11757,19 +11244,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -11783,20 +11258,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #complete-text {
     margin-right: auto;
@@ -12263,19 +11725,6 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -12289,21 +11738,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 5px 10px;
-    font-size: 0.9rem;
-}
 
 #timer-container {
     display: inline;
@@ -12770,19 +12205,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -12794,21 +12217,6 @@ h1 {
     left: 0;
     font-size: 0.9rem;
     background-color: rgba(255, 255, 255, 0.2);
-}
-
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
 }
 
 #timer-container {
@@ -13277,19 +12685,6 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid #C71585; /* MediumVioletRed */
-    border-bottom-width: 6px;
-    background-color: #C71585; /* MediumVioletRed */
-    box-shadow: 0 6px 12px rgba(199, 21, 133, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #FF69B4; /* HotPink */
-    border-bottom-width: 6px;
-    background-color: #FF69B4; /* HotPink */
-    box-shadow: 0 6px 12px rgba(255, 105, 180, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -13303,19 +12698,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px 0;
-}
 
 .hidden {
     display: none;
@@ -13784,19 +13167,6 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid black;
-    border-bottom-width: 6px;
-    background-color: black;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #4CAF50;
-    border-bottom-width: 6px;
-    background-color: #4CAF50;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -13810,19 +13180,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px 0;
-}
 
 .hidden {
     display: none;
@@ -14308,19 +13666,7 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid black;
-    border-bottom-width: 6px;
-    background-color: black;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #4CAF50;
-    border-bottom-width: 6px;
-    background-color: #4CAF50;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
 
 .card-footer {
     width: 100%;
@@ -14334,19 +13680,7 @@ h1 {
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
 
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px 0;
-}
 
 .hidden {
     display: none;
@@ -14831,51 +14165,6 @@ h1 {
     cursor: pointer;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-#main-card {
-    border: 3px solid black;
-    border-bottom-width: 6px;
-    background-color: black;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-#flipped-card {
-    border: 3px solid #4CAF50;
-    border-bottom-width: 6px;
-    background-color: #4CAF50;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.card-footer {
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    font-size: 0.9rem;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px 0;
-}
-
 .hidden {
     display: none;
 }
@@ -15356,45 +14645,9 @@ h1 {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-#main-card {
-    border: 3px solid black;
-    border-bottom-width: 6px;
-    background-color: black;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
 
-#flipped-card {
-    border: 3px solid #4CAF50;
-    border-bottom-width: 6px;
-    background-color: #4CAF50;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
 
-.card-footer {
-    width: 100%;
-    padding: 10px;
-    text-align: center;
-    font-weight: bold;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    font-size: 0.9rem;
-    background-color: rgba(255, 255, 255, 0.2);
-}
 
-#main-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-#flipped-card .card-footer {
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px 0;
-}
 
 .hidden {
     display: none;
@@ -15500,31 +14753,6 @@ button:hover {
     }
 }
 
-#timer-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
-}
-
-#timer-display {
-    display: flex;
-    align-items: baseline;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
-}
-
-#timer-value {
-    min-width: 18px;
-    text-align: right;
-}
-
-#timer-unit {
-    margin-right: 5px;
-}
-
-#timer-note {
-    font-size: 0.8rem;
-}
 
 #complete-text {
     font-size: 1rem;
@@ -15548,14 +14776,24 @@ button:hover {
     cursor: pointer;
 }
 
-#draw-card {
-    background-color: #008CBA;
+ #draw-card {
+     background-color: #DB7093; /* PaleVioletRed */
+     margin: 0;
+     padding: 12px 24px;
+ }
+ 
+ #draw-card:hover {
+     background-color: #C71585; /* MediumVioletRed */
+ }
+ 
+ #skip-turn {
+    background-color: #808080; /* Grey */
     margin: 0;
     padding: 12px 24px;
 }
 
-#draw-card:hover {
-    background-color: #007a9e;
+#skip-turn:hover {
+    background-color: #696969; /* Dark Grey */
 }
 
 #question, #challenge {
