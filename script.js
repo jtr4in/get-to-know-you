@@ -193,15 +193,16 @@ function startGame() {
         const setupSlider = document.getElementById('category-slider');
         const initialCategoryValue = setupSlider.value;
         const initialCategory = getCategory(initialCategoryValue).name;
+        console.log("Initial category:", initialCategory); // Debugging line
     
         // Create a new slider for the game area
         const gameCategoryContainer = document.getElementById('game-category-container');
         gameCategoryContainer.innerHTML = `
             <div class="slider-container">
-                <input type="range" id="game-category-slider" min="1" max="5" value="${initialCategory}" step="0.01">
+                <input type="range" id="game-category-slider" min="1" max="5" value="${initialCategoryValue}" step="0.01">
                 <div class="slider-fill"></div>
             </div>
-            <div id="game-category-value"></div>
+            <div id="game-category-value">${initialCategory}</div>
         `;
         function updateGameSlider(initialValue) {
             const slider = document.getElementById('game-category-slider');
@@ -227,9 +228,11 @@ function startGame() {
             // Update the selected category for the game
             selectedCategory = category;
             
-            // Optionally, you might want to redraw a card here
-            // drawCard();
+            console.log("Updated category:", category); // Debugging line
         }
+    
+        // Initialize the game slider
+        updateGameSlider(initialCategoryValue);
     
         const gameCategorySlider = document.getElementById('game-category-slider');
         const gameCategoryValue = document.getElementById('game-category-value');
@@ -237,8 +240,8 @@ function startGame() {
         // Set up the event listener for the new slider
         gameCategorySlider.addEventListener('input', updateGameSlider);
     
-        // Initialize the game slider
-        updateGameSlider();
+        // Initialize the slider background
+        updateSliderBackground(gameCategorySlider);
     
         // ... rest of the function ...
     }
@@ -280,8 +283,8 @@ function startGame() {
     // Create a new slider for the game area
     const gameCategoryContainer = document.getElementById('game-category-container');
     gameCategoryContainer.innerHTML = `
-        <span id="game-category-value">Icebreaker</span>
-        <input type="range" id="game-category-slider" min="1" max="5" value="1" step="0.01">
+        <span id="game-category-value">${selectedCategory}</span>
+        <input type="range" id="game-category-slider" min="1" max="5" value="${getCategoryValue(selectedCategory)}" step="0.01">
     `;
 
     const gameCategorySlider = document.getElementById('game-category-slider');
@@ -442,34 +445,53 @@ function drawCard() {
     }
 }
 
+
 function displayCard() {
     const mainCardElement = document.getElementById('main-card');
     const flippedCardElement = document.getElementById('flipped-card');
+    const cardsContainer = document.getElementById('cards-container');
     
     mainCardElement.querySelector('#question').textContent = currentCard.question;
     
     if (currentCard.isRecall) {
         mainCardElement.style.backgroundColor = "#77459b"; // Deep Purple for recall questions
-        flippedCardElement.style.backgroundColor = "#b45a5a"; // Firebrick Red for recall challenges
-        flippedCardElement.querySelector('#challenge').textContent = "Uh...";
-        flippedCardElement.querySelector('#complete-text').textContent = "-1 point";
+        mainCardElement.style.width = "100%"; // Stretch to full width
+        mainCardElement.querySelector('#question').style.fontSize = "24px"; // Larger font for better visibility
+        mainCardElement.querySelector('#question').innerHTML = currentCard.question; // Use innerHTML here
+        flippedCardElement.style.display = "none"; // Hide the flipped card
+        cardsContainer.style.justifyContent = "center"; // Center the main card
+        const questionElement = mainCardElement.querySelector('#question');
+        questionElement.style.fontSize = "24px"; // Larger font for better visibility
+        questionElement.style.display = "flex";
+        questionElement.style.flexDirection = "column";
+        questionElement.style.justifyContent = "center";
+        questionElement.style.height = "100%";
+        questionElement.style.whiteSpace = "pre-wrap"; // Preserve line breaks
+        questionElement.textContent = currentCard.question; // Use textContent to avoid HTML injection
+        flippedCardElement.style.display = "none"; // Hide the flipped card
+        cardsContainer.style.justifyContent = "center"; // Center the main card
     } else {
         mainCardElement.style.backgroundColor = "#ff4081"; // Pink for regular questions
+        mainCardElement.style.width = "200px"; // Reset to original width
+        mainCardElement.querySelector('#question').style.fontSize = "21px"; // Reset to original font size
+        flippedCardElement.style.display = "flex"; // Show the flipped card
         flippedCardElement.style.backgroundColor = "#ca8fa2"; // Lighter pink for regular challenges
         flippedCardElement.querySelector('#challenge').textContent = currentCard.challenge;
         flippedCardElement.querySelector('#complete-text').textContent = "2 points";
+        cardsContainer.style.justifyContent = "center"; // Center both cards
+        cardsContainer.style.gap = "20px"; // Add gap between cards
+        mainCardElement.querySelector('#question').textContent = currentCard.question; // Use textContent for regular questions
     }
     
     // Ensure other styles remain consistent
-    mainCardElement.style.width = flippedCardElement.style.width = "200px";
     mainCardElement.style.height = flippedCardElement.style.height = "250px";
 
-    
     // Animate cards popping up
     animateCardPopUp(mainCardElement);
-    animateCardPopUp(flippedCardElement);
+    if (!currentCard.isRecall) {
+        animateCardPopUp(flippedCardElement);
+    }
 }
-
 function animateCardPopUp(cardElement) {
     cardElement.classList.remove('pop-up', 'disappear-to-left', 'disappear-to-right');
     void cardElement.offsetWidth; // Trigger reflow
@@ -711,14 +733,13 @@ function generateRecallQuestion() {
     const randomRecallChallenge = challengesRecall[Math.floor(Math.random() * challengesRecall.length)];
     
     currentCard = {
-        question: `What was ${recalledQuestion.player}'s answer to: "${recalledQuestion.question}"`,
+        question: `What was ${recalledQuestion.player}'s answer to:\n\n"${recalledQuestion.question}"`,
         challenge: randomRecallChallenge,
         isRecall: true
     };
     
     displayCard();
 }
-
 function toggleRecallQuestions() {
     isRecallEnabled = document.getElementById('recall-questions').checked;
     // Reset the card count when toggling to avoid immediate recall question
@@ -996,3 +1017,8 @@ document.getElementById('head-to-head').addEventListener('change', function() {
         resetBoardOrientation();
     }
 });
+
+function getCategoryValue(categoryName) {
+    const categories = ['Icebreaker', 'First Date', 'Dating', 'Longterm', 'Spicy'];
+    return categories.indexOf(categoryName) + 1;
+}

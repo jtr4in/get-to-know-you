@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         #skip-turn {
-            background-color: #808080; /* Grey background */
+            background-color: #c5c5c5; /* Grey background */
             color: white; /* White text */
             border: none; /* Remove default border */
             padding: 10px 20px; /* Add some padding */
@@ -21,11 +21,11 @@
         }
 
         #skip-turn:hover {
-            background-color: #666666; /* Darker grey on hover */
+            background-color: #c5c5c5; /* Darker grey on hover */
         }
 
         #skip-turn:active {
-            background-color: #4d4d4d; /* Even darker when pressed */
+            background-color: #c5c5c5; /* Even darker when pressed */
         }
         
         #flipped-card {
@@ -201,14 +201,14 @@
                 <div id="player1-score">Player 1: <span>0</span></div>
                 <div id="player2-score">Player 2: <span>0</span></div>
             </div>
-            <div id="cards-container">
-                <div id="main-card" class="card" style="width: 200px; height: 250px; background-color: #e9497e; color: white; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <div id="question" style="font-size: 21px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center;">What was Player 1's answer to: "Do you have any hidden talents?"</div>
+            <div id="cards-container" style="display: flex; justify-content: center; width: 100%; gap: 20px;">
+                <div id="main-card" class="card" style="width: 200px; height: 220px; background-color: #e9497e; color: white; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <div id="question" style="font-size: 21px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center;"></div>
                     <div style="text-align: center; background-color: rgba(255,255,255,0.2); padding: 5px; border-radius: 10px; font-size: 14px;">1 point</div>
                 </div>
-                <div id="flipped-card" class="card" style="width: 200px; height: 250px; background-color: #4B0082; color: white; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-                    <div id="challenge" style="font-size: 21px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center;">Uh...</div>
-                    <div id="complete-text" style="text-align: center; background-color: rgba(255,255,255,0.2); padding: 5px; border-radius: 10px; font-size: 14px;">-2 points</div>
+                <div id="flipped-card" class="card" style="width: 200px; height: 220px; background-color: #4B0082; color: white; display: flex; flex-direction: column; justify-content: space-between; border-radius: 15px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <div id="challenge" style="font-size: 21px; text-align: center; flex-grow: 1; display: flex; align-items: center; justify-content: center;"></div>
+                    <div id="complete-text" style="text-align: center; background-color: rgba(255,255,255,0.2); padding: 5px; border-radius: 10px; font-size: 14px;"></div>
                 </div>
             </div>
             <div id="game-controls">
