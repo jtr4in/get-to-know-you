@@ -6075,22 +6075,30 @@ function getCardsFromCategory(category) {
 let isFlipped = false;
 
 function drawCard() {
-    const categoryCards = cards[selectedCategory];
-    if (!categoryCards || categoryCards.length === 0) {
-        console.error('No cards available for the selected category');
-        return;
+    cardsSinceLastRecall++;
+    
+    if (isRecallEnabled && cardsSinceLastRecall >= RECALL_FREQUENCY && Math.random() < 0.5) {
+        cardsSinceLastRecall = 0;
+        generateRecallQuestion();
+    } else {
+        // Your existing code to draw a regular card
+        const categoryCards = cards[selectedCategory];
+        if (!categoryCards || categoryCards.length === 0) {
+            console.error('No cards available for the selected category');
+            return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * categoryCards.length);
+        const drawnCard = categoryCards[randomIndex];
+
+        currentCard = {
+            question: drawnCard.question,
+            challenge: drawnCard.challenges[Math.floor(Math.random() * drawnCard.challenges.length)],
+            isRecall: false
+        };
+
+        displayCard();
     }
-
-    const randomIndex = Math.floor(Math.random() * categoryCards.length);
-    const drawnCard = categoryCards[randomIndex];
-
-    currentCard = {
-        question: drawnCard.question,
-        challenge: drawnCard.challenges[Math.floor(Math.random() * drawnCard.challenges.length)],
-        isRecall: false
-    };
-
-    displayCard();
 }
 
     if (document.getElementById('head-to-head').checked) {
@@ -6367,29 +6375,28 @@ function generateRecallQuestion() {
     console.log("All players:", players);
     console.log("Question history:", questionHistory);
     
-    // Find the other player's name
-    const otherPlayerName = players.find(player => player.name !== players[currentPlayerIndex].name).name;
-    console.log("Other player name:", otherPlayerName);
+    // Find the previous player's index
+    const previousPlayerIndex = (currentPlayerIndex - 1 + players.length) % players.length;
+    const previousPlayerName = players[previousPlayerIndex].name;
+    console.log("Previous player name:", previousPlayerName);
     
-    // Filter questions answered by the other player
-    const otherPlayerQuestions = questionHistory.filter(q => q.player === otherPlayerName);
-    console.log("Other player questions:", otherPlayerQuestions);
+    // Filter questions answered by the previous player
+    const previousPlayerQuestions = questionHistory.filter(q => q.player === previousPlayerName);
+    console.log("Previous player questions:", previousPlayerQuestions);
     
-    // If there are no questions from the other player, draw a regular card instead
-    if (otherPlayerQuestions.length === 0) {
-        console.log("No other player questions, drawing regular card");
+    // If there are no questions from the previous player, draw a regular card instead
+    if (previousPlayerQuestions.length === 0) {
+        console.log("No previous player questions, drawing regular card");
         drawCard();
         return;
     }
 
-    const recalledQuestion = otherPlayerQuestions[Math.floor(Math.random() * otherPlayerQuestions.length)];
+    const recalledQuestion = previousPlayerQuestions[Math.floor(Math.random() * previousPlayerQuestions.length)];
     console.log("Recalled question:", recalledQuestion);
-    
-    const randomRecallChallenge = challengesRecall[Math.floor(Math.random() * challengesRecall.length)];
     
     currentCard = {
         question: `What was ${recalledQuestion.player}'s answer to:\n\n"${recalledQuestion.question}"`,
-        challenge: randomRecallChallenge,
+        challenge: null, // No challenge for recall questions
         isRecall: true
     };
     
