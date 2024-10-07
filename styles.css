@@ -325,9 +325,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #FF1493; /* DeepPink */
-}
+
 
 #draw-card {
     background-color: #DB7093; /* PaleVioletRed */
@@ -910,16 +908,14 @@ button {
     padding: 12px 24px;
     font-size: 1rem;
     cursor: pointer;
-    background-color: #FF69B4; /* HotPink */
+    background-color: #bbbbbb; /* HotPink */
     color: white;
     border: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #FF1493; /* DeepPink */
-}
+
 
 #draw-card {
     background-color: #DB7093; /* PaleVioletRed */
