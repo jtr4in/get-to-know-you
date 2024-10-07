@@ -6,7 +6,42 @@ let isHeadToHeadMode = false;
 let isRecallEnabled = true;
 let selectedCategory = 'Icebreaker';
 let scoreLimit = 20;
+let timer;
+let timeLeft = 600; // 10 minutes in seconds
+const FULL_DASH_ARRAY = 157; // Circumference of the circle
 
+function startTimer() {
+    clearInterval(timer);
+    timeLeft = 600; // Reset to 10 minutes
+    timer = setInterval(function() {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.getElementById('timer-text').textContent = timeString;
+        
+        const circleDashoffset = calculateTimeFraction() * FULL_DASH_ARRAY;
+        document.getElementById('timer-circle').style.strokeDashoffset = circleDashoffset;
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            alert("Time's up!");
+            // You can add more actions here when the time is up
+        }
+    }, 1000);
+}
+
+function calculateTimeFraction() {
+    return timeLeft / 600; // 600 is the total time in seconds (10 minutes)
+}
+
+function showTimer() {
+    document.getElementById('timer').style.display = 'block';
+}
+
+function hideTimer() {
+    document.getElementById('timer').style.display = 'none';
+}
 const cards = {
     'Icebreaker': [
         { 
@@ -5819,7 +5854,7 @@ let questionHistory = [];
 const RECALL_FREQUENCY = 10; // Ask a recall question every 5 cards
 let cardsSinceLastRecall = 0;
 
-
+let isCoopMode = false; // New variable to track co-op mode
 
 function initializeSinglePlayer() {
     players = [{ name: "Player 1", score: 0 }];
@@ -5868,10 +5903,12 @@ function updateGameSlider() {
 }
 
 function startGame() {
+
+    
     const playerInputGroups = document.querySelectorAll('.player-input-group');
     function startGame() {
     
-    
+     
         const setupSlider = document.getElementById('category-slider');
         const initialCategoryValue = setupSlider.value;
         const initialCategory = getCategory(initialCategoryValue).name;
@@ -5911,6 +5948,16 @@ function startGame() {
             selectedCategory = category;
             
             console.log("Updated category:", category); // Debugging line
+            isCoopMode = document.getElementById('coop-mode').checked;
+            updateScoreDisplay();
+        
+            if (isCoopMode) {
+                showTimer();
+                startTimer();
+            } else {
+                hideTimer();
+            }
+        
         }
     
         // Initialize the game slider
@@ -5984,6 +6031,13 @@ function startGame() {
 
     // Initialize the slider background
     updateSliderBackground(gameCategorySlider);
+
+    isCoopMode = document.getElementById('coop-mode').checked;
+    updateScoreDisplay();
+    if (isCoopMode) {
+        timeRemaining = 10 * 60; // Reset timer to 10 minutes
+        startTimer();
+    }
 }
 
 function getCategory(value) {
@@ -6046,12 +6100,35 @@ function getContrastColor(hexcolor) {
 
 // Update these functions to work with any number of players
 function updateScores() {
-    players.forEach((player, index) => {
-        const scoreElement = document.getElementById(`player${index + 1}-score`);
-        scoreElement.lastChild.textContent = player.score;
-    });
+    if (isCoopMode) {
+        const totalScore = players.reduce((sum, player) => sum + player.score, 0);
+        const teamScoreElement = document.getElementById('team-score');
+        if (teamScoreElement) {
+            teamScoreElement.innerHTML = `<span>Team Score: ${totalScore}/${scoreLimit}</span>`;
+        } else {
+            console.warn('Team score element not found. Creating it.');
+            const scoresContainer = document.getElementById('scores');
+            if (scoresContainer) {
+                const newTeamScoreElement = document.createElement('div');
+                newTeamScoreElement.id = 'team-score';
+                newTeamScoreElement.innerHTML = `<span>Team Score: ${totalScore}/${scoreLimit}</span>`;
+                scoresContainer.appendChild(newTeamScoreElement);
+            } else {
+                console.error('Scores container not found. Unable to update scores.');
+            }
+        }
+    } else {
+        // Existing individual score update logic
+        players.forEach((player, index) => {
+            const scoreElement = document.getElementById(`player${index + 1}-score`);
+            if (scoreElement) {
+                scoreElement.lastChild.textContent = player.score;
+            } else {
+                console.warn(`Score element for player ${index + 1} not found.`);
+            }
+        });
+    }
 }
-
 function switchPlayer() {
     console.log("Switching player. Current index before switch:", currentPlayerIndex);
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
@@ -6099,14 +6176,13 @@ function drawCard() {
 
         displayCard();
     }
-}
 
-    if (document.getElementById('head-to-head').checked) {
+    if (!isCoopMode && document.getElementById('head-to-head').checked) {
         flipBoard();
     } else {
         resetBoardOrientation();
     }
-
+}
 
 
 function displayCard() {
@@ -6190,7 +6266,12 @@ function animateCardDisappear(cardElement) {
 
 function answerQuestion() {
     const points = 1;
-    players[currentPlayerIndex].score += points;
+    if (isCoopMode) {
+        // In co-op mode, add points only once to the team score
+        players[0].score += points; // Use the first player's score as the team score
+    } else {
+        players[currentPlayerIndex].score += points;
+    }
     updateScores();
     
     // Store the question for potential recall later
@@ -6216,14 +6297,13 @@ function answerQuestion() {
 }
 
 function completeChallenge() {
-    let points;
-    if (currentCard.isRecall) {
-        points = -1; // Deduct 2 points for "Forgot" on recall questions
+    const points = 2;
+    if (isCoopMode) {
+        // In co-op mode, add points only once to the team score
+        players[0].score += points; // Use the first player's score as the team score
     } else {
-        points = 2; // Award 2 points for completing regular challenges
+        players[currentPlayerIndex].score += points;
     }
-    
-    players[currentPlayerIndex].score += points;
     updateScores();
     
     // Store the question for potential recall later, even for recall questions
@@ -6260,6 +6340,9 @@ function resetGame() {
     if (typeof confettiInterval !== 'undefined') {
         clearInterval(confettiInterval);
     }
+    
+    // Store the current co-op mode setting
+    const wasCoopMode = document.getElementById('coop-mode').checked;
     
     // Reset game state
     currentCard = null;
@@ -6303,31 +6386,75 @@ function resetGame() {
     document.getElementById('head-to-head').checked = false;
     document.getElementById('recall-questions').checked = true;
     
+    // Restore the co-op mode setting
+    document.getElementById('coop-mode').checked = wasCoopMode;
+    
     // Clear scores display
     document.getElementById('scores').innerHTML = '';
+    
+    // Stop the timer if it's running
+    stopTimer();
+    
+    // Reset the timer
+    timeRemaining = 10 * 60;
     
     // Reload the page to ensure all states are reset
     location.reload();
 }
 
 function updateCurrentPlayer() {
-    document.querySelectorAll('#scores > div').forEach((div, index) => {
-        if (index === currentPlayerIndex) {
-            div.classList.add('current-player-box');
-            div.style.backgroundColor = players[index].color;
-            div.style.color = getContrastColor(players[index].color);
-        } else {
-            div.classList.remove('current-player-box');
-            div.style.backgroundColor = '';
-            div.style.color = '';
+    if (isCoopMode) {
+        const teamScoreBox = document.getElementById('team-score');
+        if (teamScoreBox) {
+            const currentPlayer = players[currentPlayerIndex];
+            const totalScore = players.reduce((sum, player) => sum + player.score, 0);
+            teamScoreBox.style.backgroundColor = currentPlayer.color;
+            teamScoreBox.style.color = getContrastColor(currentPlayer.color);
+            teamScoreBox.firstChild.textContent = `(${totalScore}/${scoreLimit}) ~ ${currentPlayer.name} ~ ${formatTime(timeRemaining)}  ` ;
         }
-        div.firstChild.textContent = div.firstChild.textContent.replace("'s answering", "");
-    });
+    } else {
+        // Existing logic for competitive mode
+        document.querySelectorAll('#scores > div').forEach((div, index) => {
+            if (index === currentPlayerIndex) {
+                div.classList.add('current-player-box');
+                div.style.backgroundColor = players[index].color;
+                div.style.color = getContrastColor(players[index].color);
+            } else {
+                div.classList.remove('current-player-box');
+                div.style.backgroundColor = '';
+                div.style.color = '';
+            }
+            div.firstChild.textContent = div.firstChild.textContent.replace("'s turn", "");
+        });
 
-    const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
-    currentPlayerBox.firstChild.textContent += "'s answering";
+        const currentPlayerBox = document.getElementById(`player${currentPlayerIndex + 1}-score`);
+        if (currentPlayerBox) {
+            currentPlayerBox.firstChild.textContent += "'s turn";
+        }
+    }
 }
 
+function switchPlayer() {
+    console.log("Switching player. Current index before switch:", currentPlayerIndex);
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    console.log("New current index after switch:", currentPlayerIndex);
+    console.log("Current player after switch:", players[currentPlayerIndex].name);
+    updateCurrentPlayer();
+}
+
+// Make sure this function exists in your code
+function getContrastColor(hexcolor) {
+    // Convert hex to RGB
+    const r = parseInt(hexcolor.substr(1,2),16);
+    const g = parseInt(hexcolor.substr(3,2),16);
+    const b = parseInt(hexcolor.substr(5,2),16);
+    
+    // Calculate luminance
+    const yiq = ((r*299)+(g*587)+(b*114))/1000;
+    
+    // Return black or white depending on luminance
+    return (yiq >= 128) ? 'black' : 'white';
+}
 function resetToPlayerSetup() {
     document.getElementById('game-area').classList.add('hidden');
     document.getElementById('player-setup').classList.remove('hidden');
@@ -6422,20 +6549,24 @@ function flipView() {
 }
 
 function checkGameEnd() {
-    const winningPlayer = players.find(player => player.score >= scoreLimit);
-    if (winningPlayer && !gameEndAlertShown) {
-        const winnerName = winningPlayer.name;
-        document.getElementById('game-area').classList.add('hidden');
-        document.getElementById('player-setup').classList.remove('hidden');
-        
-        // Trigger confetti effect
-        triggerWinningCelebration();
-        
-        // Show modal immediately
-        showWinnerModal(winnerName);
-        gameEndAlertShown = true;
-        
-        return true;
+    if (isCoopMode) {
+        const totalScore = players.reduce((sum, player) => sum + player.score, 0);
+        if (totalScore >= scoreLimit && !gameEndAlertShown) {
+            stopTimer(); // Stop the timer
+            triggerWinningCelebration();
+            showWinnerModal("Team");
+            gameEndAlertShown = true;
+            return true;
+        }
+    } else {
+        // Existing individual win condition logic
+        const winningPlayer = players.find(player => player.score >= scoreLimit);
+        if (winningPlayer && !gameEndAlertShown) {
+            triggerWinningCelebration();
+            showWinnerModal(winningPlayer.name);
+            gameEndAlertShown = true;
+            return true;
+        }
     }
     return false;
 }
@@ -6520,7 +6651,9 @@ function skipTurn() {
     const points = 1; // Points to deduct for skipping
     players[currentPlayerIndex].score -= points;
     updateScores();
-    
+    if (isCoopMode) {
+        startTimer();
+    }
     if (!checkGameEnd()) {
         switchPlayer();
         drawCard();
@@ -6684,3 +6817,116 @@ function getCategoryValue(categoryName) {
     const categories = ['Icebreaker', 'First Date', 'Dating', 'Longterm', 'Spicy'];
     return categories.indexOf(categoryName) + 1;
 }
+
+function updateSettings() {
+    // ... existing settings ...
+    const wasCoopMode = isCoopMode;
+    isCoopMode = document.getElementById('coop-mode').checked;
+    if (wasCoopMode !== isCoopMode) {
+        updateScoreDisplay(); // Recreate score display when switching modes
+    }
+    updateScores(); // Update scores after settings change
+}
+
+function updateScoreDisplay() {
+    const scoresContainer = document.getElementById('scores');
+    scoresContainer.innerHTML = '';
+    
+    if (isCoopMode) {
+        // Display total score for all players
+        const totalScore = players.reduce((sum, player) => sum + player.score, 0);
+        const scoreDiv = document.createElement('div');
+        scoreDiv.id = 'team-score';
+        scoreDiv.style.width = '100%'; // Make it take up full width
+        scoreDiv.style.textAlign = 'center'; // Center the text
+        scoreDiv.style.padding = '10px'; // Add some padding
+        scoreDiv.style.fontSize = '1.2em'; // Increase font size
+        scoreDiv.innerHTML = `<span>Team Score: ${totalScore}/${scoreLimit}</span>`;
+        scoresContainer.appendChild(scoreDiv);
+        
+      
+    } else {
+        // Display individual scores (existing logic)
+        players.forEach((player, index) => {
+            const scoreDiv = document.createElement('div');
+            scoreDiv.id = `player${index + 1}-score`;
+            scoreDiv.innerHTML = `<span>${player.name}</span><span>${player.score}</span>`;
+            scoreDiv.style.color = player.color;
+            scoresContainer.appendChild(scoreDiv);
+        });
+    }
+
+    updateCurrentPlayer();
+}
+let timerInterval;
+let timeRemaining = 10 * 60; // 10 minutes in seconds
+
+function startTimer() {
+    clearInterval(timerInterval); // Clear any existing timer
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function updateTimer() {
+    if (timeRemaining > 0) {
+        timeRemaining--;
+        updateCurrentPlayer(); // Update display
+    } else {
+        clearInterval(timerInterval);
+        // Handle game over due to time running out
+        alert("Time's up! Game over.");
+        resetGame();
+    }
+}
+
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+function stopTimer() {
+    clearInterval(timerInterval);
+}
+let isPaused = false;
+
+function togglePause() {
+    isPaused = !isPaused;
+    const pauseButton = document.getElementById('pause-game');
+    
+    if (isPaused) {
+        // Pause the game and deduct a point
+        pauseButton.textContent = 'Resume';
+        if (timerInterval) {
+            clearInterval(timerInterval);
+        }
+        document.getElementById('draw-card').disabled = true;
+        document.getElementById('skip-turn').disabled = true;
+        
+        // Deduct a point
+        if (isCoopMode) {
+            // In co-op mode, deduct from team score
+            const totalScore = players.reduce((sum, player) => sum + player.score, 0);
+            players.forEach(player => player.score = (totalScore - 1) / players.length);
+        } else {
+            // In competitive mode, deduct from current player
+            players[currentPlayerIndex].score -= 1;
+        }
+        updateScores();
+    } else {
+        // Resume the game
+        pauseButton.textContent = 'Pause (-1)';
+        if (isCoopMode) {
+            startTimer();
+        }
+        document.getElementById('draw-card').disabled = false;
+        document.getElementById('skip-turn').disabled = false;
+    }
+    
+    updateScoreDisplay();
+}
+
+// Update the button text in the HTML
+document.addEventListener('DOMContentLoaded', function() {
+    // ... existing code ...
+    document.getElementById('pause-game').textContent = 'Pause (-1)';
+    document.getElementById('pause-game').addEventListener('click', togglePause);
+});

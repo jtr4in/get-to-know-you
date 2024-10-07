@@ -194,7 +194,14 @@
                     <span>Flip Mode</span>
                 </div>
                 <!-- Add this line -->
-                
+                <div id="timer" style="display: none;">
+                    <svg width="100" height="60" viewBox="0 0 60 60">
+                        <circle cx="30" cy="30" r="25" fill="none" stroke="#ccc" stroke-width="5"/>
+                        <circle cx="30" cy="30" r="25" fill="none" stroke="#08aab6" stroke-width="5"
+                                stroke-dasharray="157" stroke-dashoffset="157" id="timer-circle"/>
+                        <text x="30" y="35" text-anchor="middle" fill="#333" font-size="12px" id="timer-text">10:00</text>
+                    </svg>
+                </div>
                 <button id="reset-game">Reset</button>
             </div>
             <div id="scores">
@@ -213,9 +220,9 @@
             </div>
             <div id="game-controls">
                 <button id="draw-card">Draw</button>
-                
-                
-                <button id="skip-turn">Pass (-1)</button>
+                <button id="pause-game">|| (-1)</button>
+               
+                <button id="skip-turn">Failed (-1)</button>
             </div>
             <div id="game-category-container"></div>
             <br>
@@ -236,6 +243,11 @@
             <div id="recall-toggle">
                 <label for="recall-questions">Were you listening?</label>
                 <input type="checkbox" id="recall-questions" checked>
+            </div>
+            <!-- Add this inside your settings modal or wherever your game settings are -->
+            <div class="setting">
+                <label for="coop-mode">Co-op Mode:</label>
+                <input type="checkbox" id="coop-mode" onchange="updateSettings()" checked>
             </div>
         </div>
     </div>

@@ -11,7 +11,17 @@ body {
     background-position: center; /* This will center the image */
     transition: transform 0.5s ease-in-out;
 }
+#timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px;
+}
 
+#timer svg {
+    width: 60px;
+    height: 60px;
+}
 body.head-to-head-mode {
     transform: rotate(180deg);
 }
@@ -133,7 +143,7 @@ h1 {
     transition: transform 0.2s ease, background-color 0.3s ease;
     min-width: auto;
     flex: 1;
-    max-width: calc(50% - 0.5rem);
+
 }
 
 #scores > div.current-player-box {
@@ -383,7 +393,7 @@ button:hover {
         padding: 0.4rem 0.6rem;
         min-width: auto;
         flex: 1;
-        max-width: calc(50% - 0.5rem);
+
     }
 
     #scores > div > span:first-child {
@@ -975,9 +985,29 @@ button:hover {
         padding: 0.4rem 0.6rem;
         min-width: auto;
         flex: 1;
-        max-width: calc(50% - 0.5rem);
+     
     }
-
+    #pause-game {
+        background-color: #bdbcba; /* Orange background */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    
+    #pause-game:hover {
+        background-color: #FF8C00; /* Darker orange on hover */
+    }
+    
+    #pause-game:active {
+        background-color: #FF7F50; /* Even darker when pressed */
+    }
     #scores > div > span:first-child {
         font-size: 0.9rem;
     }
